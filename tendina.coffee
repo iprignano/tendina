@@ -1,10 +1,5 @@
 (($, window) ->
   class Tendina
- 
-    defaults:
-      paramA: 'foo'
-      paramB: 'bar'
-
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
       @menuElement          = $(el).attr('class')

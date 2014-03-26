@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tendina plugin</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/demo.css">
+</head>
+  <body>
+    <ul class="dropdown">
+      <li>
+        <a href="#">Menu 1</a>
+        <ul>
+          <li><a href="#">Submenu 1</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Menu 2</a>
+        <ul>
+          <li><a href="#">Submenu 2</a></li>
+          <li><a href="#">Submenu 2</a></li>
+          <li><a href="#">Submenu 2</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Menu 3</a>
+        <ul>
+          <li><a href="#">Submenu 3</a></li>
+          <li><a href="#">Submenu 3</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../tendina.js"></script>
+    <script>
+      $('.dropdown').tendina()
+    </script>
+  </body>
+</html>
