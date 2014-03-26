@@ -73,3 +73,5 @@ table {
     padding: 0 20px; }
     .dropdown li > ul li a {
       color: gray; }
+    .dropdown li > ul li > ul li {
+      padding: 10px 30px; }
