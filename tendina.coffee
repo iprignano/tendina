@@ -7,6 +7,8 @@
       @secondLvlSubmenu     = ".#{@menuElement} > li > ul > li"
       @firstLvlSubmenuLink  = "#{@firstLvlSubmenu} > a"
       @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
+
+      @hideSubmenus()
       @bindEvents()
 
     bindEvents: ->
@@ -49,6 +51,9 @@
 
     isCurrentlyOpen: (el) ->
       $(el).parent().hasClass 'selected'
+
+    hideSubmenus: ->
+      $(".#{@menuElement} > li > ul").hide()
  
   $.fn.extend tendina: (option, args...) ->
     @each ->

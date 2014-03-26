@@ -60,6 +60,8 @@ table {
   font-size: 12px; }
   .dropdown li {
     padding: 0 10px; }
+    .dropdown li.selected {
+      background-color: #f2f2f2; }
     .dropdown li a {
       display: block;
       width: 100%;
@@ -67,9 +69,7 @@ table {
       text-decoration: none;
       text-transform: uppercase;
       color: black; }
-  .dropdown li > ul {
-    display: none; }
-    .dropdown li > ul li {
-      padding: 0 20px; }
-      .dropdown li > ul li a {
-        color: gray; }
+  .dropdown li > ul li {
+    padding: 0 20px; }
+    .dropdown li > ul li a {
+      color: gray; }
