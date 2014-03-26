@@ -50,6 +50,8 @@ $('.dropdown').tendina()
 
 Tendina will hide your nested submenus and manage all interactions with a nice slideUp/Down effect. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
 
+Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks as you want!
+
 License
 ===
 
