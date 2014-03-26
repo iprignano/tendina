@@ -3,6 +3,8 @@ Tendina
 
 A super easy-to-use jQuery plugin to build rapidly dropdown side menus.
 
+![Tendina reveals!](/demo/tendina.gif "Tendina reveals")
+
 Usage
 ===
 
