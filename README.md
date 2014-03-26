@@ -40,8 +40,15 @@ Then, you need to link jQuery and tendina.js in your body:
 <script src="tendina.js"></script>
 ```
 
-And, finally, call the function on your list:
+And, finally, call the function on your list menu:
 
 ```javascript
 $('.dropdown').tendina()
 ```
+
+Tendina will hide your nested submenus and manage all interactions with a nice slideUp/Down effect. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
+
+License
+===
+
+Tendina is released under the MIT License.
