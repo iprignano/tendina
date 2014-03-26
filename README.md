@@ -10,7 +10,7 @@ A super easy-to-use jQuery plugin to build rapidly dropdown side menus.
 Usage
 ===
 
-To use Tendina, you need to have some basic markup for your menu. That means you need to have some unordered lists, nested:
+To use Tendina, you just need to have some basic markup for your menu. That means you'll have some nested unordered lists, like this:
 
 ```html
 <ul class="dropdown">
@@ -42,20 +42,21 @@ To use Tendina, you need to have some basic markup for your menu. That means you
   </li>
 </ul>
 ```
-Then, you need to link jQuery and tendina.js in your body:
+
+Next step is to have jQuery and Tendina in your page:
 
 ```html
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="tendina.js"></script>
 ```
 
-And, finally, call the function on your list menu:
+Finally, you can simply call the function on your list to transform it in a snappy side menu:
 
 ```javascript
 $('.dropdown').tendina()
 ```
 
-Tendina supports three-level deep nesting (`ul > li > ul > li > ul > li`).
+The plugin supports three-level deep nesting (`ul > li > ul > li > ul > li`). *Bring on the categories!*
 
 Tendina will hide your nested submenus and manage all interactions with a nice slideUp/Down effect. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
 
