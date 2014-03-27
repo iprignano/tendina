@@ -54,6 +54,7 @@
 
     hideSubmenus: ->
       $(".#{@menuElement} > li > ul").hide()
+      $(".#{@menuElement} > li > ul > li > ul").hide()
  
   $.fn.extend tendina: (option, args...) ->
     @each ->

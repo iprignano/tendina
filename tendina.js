@@ -16,29 +16,32 @@
       }
 
       Tendina.prototype.bindEvents = function() {
-        var _this = this;
-        $(document).on('click', this.firstLvlSubmenuLink, function(event) {
-          var clickedEl;
-          clickedEl = event.currentTarget;
-          if (_this.hasChildenAndIsHidden(clickedEl)) {
-            event.preventDefault();
-            return _this.openSubmenu(_this.firstLvlSubmenu, clickedEl);
-          } else if (_this.isCurrentlyOpen(clickedEl)) {
-            event.preventDefault();
-            return _this.closeSubmenu(clickedEl);
-          }
-        });
-        return $(document).on('click', this.secondLvlSubmenuLink, function(event) {
-          var clickedEl;
-          clickedEl = event.currentTarget;
-          if (_this.hasChildenAndIsHidden(clickedEl)) {
-            event.preventDefault();
-            return _this.openSubmenu(_this.secondLvlSubmenu, clickedEl);
-          } else if (_this.isCurrentlyOpen(clickedEl)) {
-            event.preventDefault();
-            return _this.closeSubmenu(clickedEl);
-          }
-        });
+        $(document).on('click', this.firstLvlSubmenuLink, (function(_this) {
+          return function(event) {
+            var clickedEl;
+            clickedEl = event.currentTarget;
+            if (_this.hasChildenAndIsHidden(clickedEl)) {
+              event.preventDefault();
+              return _this.openSubmenu(_this.firstLvlSubmenu, clickedEl);
+            } else if (_this.isCurrentlyOpen(clickedEl)) {
+              event.preventDefault();
+              return _this.closeSubmenu(clickedEl);
+            }
+          };
+        })(this));
+        return $(document).on('click', this.secondLvlSubmenuLink, (function(_this) {
+          return function(event) {
+            var clickedEl;
+            clickedEl = event.currentTarget;
+            if (_this.hasChildenAndIsHidden(clickedEl)) {
+              event.preventDefault();
+              return _this.openSubmenu(_this.secondLvlSubmenu, clickedEl);
+            } else if (_this.isCurrentlyOpen(clickedEl)) {
+              event.preventDefault();
+              return _this.closeSubmenu(clickedEl);
+            }
+          };
+        })(this));
       };
 
       Tendina.prototype.openSubmenu = function(el, clickedEl) {
@@ -66,7 +69,8 @@
       };
 
       Tendina.prototype.hideSubmenus = function() {
-        return $("." + this.menuElement + " > li > ul").hide();
+        $("." + this.menuElement + " > li > ul").hide();
+        return $("." + this.menuElement + " > li > ul > li > ul").hide();
       };
 
       return Tendina;
