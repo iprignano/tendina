@@ -60,7 +60,7 @@ The plugin supports three-level-deep nesting (`ul > li > ul > li > ul > li`). Br
 
 Tendina will hide your nested submenus and manage all interactions with a nice slideUp/Down effect. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
 
-I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**. This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks as you want!
+I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**. This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks without adding other Javascript code!
 
 Contributing
 ===
@@ -68,6 +68,7 @@ Contributing
 Contributions are welcome! In order to contribute, you can use the [Fork & Pull Model](https://help.github.com/articles/using-pull-requests#fork--pull).
 
 Bonus sugar: Tendina comes with a easy-to-use Grunt configuration.
+
 Given you have `npm` and `grunt-cli` installed, you just need to run `npm install` in the project folder once to install all the dev dependencies. 
 Then, just execute `grunt watch`: this way Grunt will spawn a watcher that will compile the Coffee and minify the resulting Javascript everytime you edit `tendina.coffee`.
 
