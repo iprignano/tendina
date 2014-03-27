@@ -1,0 +1,23 @@
+{
+  "name": "Tendina",
+  "version": "0.1.0",
+  "description": "A super easy-to-use jQuery plugin to rapidly build dropdown side menus",
+  "main": "tendina.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iprignano/tendina.git"
+  },
+  "author": "Ivan Prignano",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "f4f07fcc21ee55f056c3463f311493e8b4e81c0c",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-uglify": "^0.4.0"
+  }
+}
