@@ -6,12 +6,12 @@
     Tendina = (function() {
       function Tendina(el, options) {
         this.options = $.extend({}, this.defaults, options);
-        this.menuElement = $(el).attr('class');
-        this.firstLvlSubmenu = "." + this.menuElement + " > li";
-        this.secondLvlSubmenu = "." + this.menuElement + " > li > ul > li";
+        $(el).addClass('tendina');
+        this.firstLvlSubmenu = ".tendina > li";
+        this.secondLvlSubmenu = ".tendina > li > ul > li";
         this.firstLvlSubmenuLink = "" + this.firstLvlSubmenu + " > a";
         this.secondLvlSubmenuLink = "" + this.secondLvlSubmenu + " > a";
-        this.hideSubmenus();
+        this.hideSubmenusOnStartup();
         this.bindEvents();
       }
 
@@ -68,9 +68,9 @@
         return $(el).parent().hasClass('selected');
       };
 
-      Tendina.prototype.hideSubmenus = function() {
-        $("." + this.menuElement + " > li > ul").hide();
-        return $("." + this.menuElement + " > li > ul > li > ul").hide();
+      Tendina.prototype.hideSubmenusOnStartup = function() {
+        $("" + this.firstLvlSubmenu + " > ul").hide();
+        return $("" + this.secondLvlSubmenu + " > ul").hide();
       };
 
       return Tendina;

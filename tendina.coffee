@@ -2,13 +2,15 @@
   class Tendina
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
-      @menuElement          = $(el).attr('class')
-      @firstLvlSubmenu      = ".#{@menuElement} > li"
-      @secondLvlSubmenu     = ".#{@menuElement} > li > ul > li"
+
+      $(el).addClass('tendina')
+
+      @firstLvlSubmenu      = ".tendina > li"
+      @secondLvlSubmenu     = ".tendina > li > ul > li"
       @firstLvlSubmenuLink  = "#{@firstLvlSubmenu} > a"
       @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
 
-      @hideSubmenus()
+      @hideSubmenusOnStartup()
       @bindEvents()
 
     bindEvents: ->
@@ -52,9 +54,9 @@
     isCurrentlyOpen: (el) ->
       $(el).parent().hasClass 'selected'
 
-    hideSubmenus: ->
-      $(".#{@menuElement} > li > ul").hide()
-      $(".#{@menuElement} > li > ul > li > ul").hide()
+    hideSubmenusOnStartup: ->
+      $("#{@firstLvlSubmenu} > ul").hide()
+      $("#{@secondLvlSubmenu} > ul").hide()
  
   $.fn.extend tendina: (option, args...) ->
     @each ->
