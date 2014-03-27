@@ -5,12 +5,12 @@ module.exports = (grunt)->
     coffee:
       compile:
         files:
-          'tendina.js': 'tendina.coffee'
+          "tendina.js": "tendina.coffee"
 
     uglify:
       target:
         files:
-          'tendina.min.js': 'tendina.js'
+          "tendina.min.js": "tendina.js"
 
     watch:
       coffee:
