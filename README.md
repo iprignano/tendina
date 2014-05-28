@@ -65,6 +65,8 @@ I made this plugin just to handle menu interactions in a flexible way. As a resu
 Options
 ===
 
+Tendina accepts an option object.
+
 **Animate** - boolean (default: true)
 
 ```javascript
