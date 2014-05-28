@@ -67,14 +67,14 @@ Options
 
 **Animate** - boolean (default: true)
 
-```
+```javascript
 animate: true
 ```
 Set to `false` if you don't want to have slideUp/slideDown animations.
 
 **Speed** - integer (default: 500)
 
-```
+```javascript
 speed: 1000
 ```
 
@@ -89,7 +89,7 @@ Contributions are welcome! In order to contribute, you can use the [Fork & Pull 
 
 Bonus sugar: Tendina comes with a easy-to-use Grunt configuration.
 
-Given you have `npm` and `grunt-cli` installed, you just need to run `npm install` in the project folder once to install all the dev dependencies. 
+Given you have `npm` and `grunt-cli` installed, you just need to run `npm install` in the project folder once to install all the dev dependencies.
 Then, just execute `grunt watch`: this way Grunt will spawn a watcher that will compile the Coffee and minify the resulting Javascript everytime you edit `tendina.coffee`.
 
 License
