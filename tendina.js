@@ -13,6 +13,7 @@
       function Tendina(el, options) {
         this.clickHandler = __bind(this.clickHandler, this);
         this.options = $.extend({}, this.defaults, options);
+        this.checkOptions();
         $(el).addClass('tendina');
         this.firstLvlSubmenu = ".tendina > li";
         this.secondLvlSubmenu = ".tendina > li > ul > li";
@@ -94,6 +95,15 @@
       Tendina.prototype.hideSubmenusOnStartup = function() {
         $("" + this.firstLvlSubmenu + " > ul").hide();
         return $("" + this.secondLvlSubmenu + " > ul").hide();
+      };
+
+      Tendina.prototype.checkOptions = function() {
+        if (this.options.animate !== true || false) {
+          console.warn("jQuery.fn.Tendina - '" + this.options.animate + "' is not a valid parameter for the 'animate' option. Falling back to default value.");
+        }
+        if (this.options.speed !== parseInt(this.options.speed)) {
+          return console.warn("jQuery.fn.Tendina - '" + this.options.speed + "' is not a valid parameter for the 'speed' option. Falling back to default value.");
+        }
       };
 
       return Tendina;

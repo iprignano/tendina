@@ -7,6 +7,7 @@
 
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
+      @checkOptions()
 
       $(el).addClass('tendina')
 
@@ -77,6 +78,12 @@
     hideSubmenusOnStartup: ->
       $("#{@firstLvlSubmenu} > ul").hide()
       $("#{@secondLvlSubmenu} > ul").hide()
+
+    checkOptions: ->
+      if @options.animate isnt true or false
+        console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
+      if @options.speed isnt parseInt(@options.speed)
+        console.warn "jQuery.fn.Tendina - '#{@options.speed}' is not a valid parameter for the 'speed' option. Falling back to default value."
 
   $.fn.extend tendina: (option, args...) ->
     @each ->
