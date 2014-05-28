@@ -1,3 +1,11 @@
+
+/*
+Tendina jQuery plugin v0.1.2
+
+Copyright (c) 2014 Ivan Prignano
+Released under the MIT License
+ */
+
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __slice = [].slice;
@@ -93,8 +101,7 @@
       };
 
       Tendina.prototype.hideSubmenusOnStartup = function() {
-        $("" + this.firstLvlSubmenu + " > ul").hide();
-        return $("" + this.secondLvlSubmenu + " > ul").hide();
+        return $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
       };
 
       Tendina.prototype.checkOptions = function() {
@@ -118,10 +125,7 @@
           $this = $(this);
           data = $this.data('tendina');
           if (!data) {
-            $this.data('tendina', (data = new Tendina(this, option)));
-          }
-          if (typeof option === 'string') {
-            return data[option].apply(data, args);
+            return $this.data('tendina', (data = new Tendina(this, option)));
           }
         });
       }
