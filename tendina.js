@@ -1,10 +1,17 @@
 (function() {
-  var __slice = [].slice;
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __slice = [].slice;
 
   (function($, window) {
     var Tendina;
     Tendina = (function() {
+      Tendina.prototype.defaults = {
+        animate: true,
+        speed: 500
+      };
+
       function Tendina(el, options) {
+        this.clickHandler = __bind(this.clickHandler, this);
         this.options = $.extend({}, this.defaults, options);
         $(el).addClass('tendina');
         this.firstLvlSubmenu = ".tendina > li";
@@ -16,48 +23,64 @@
       }
 
       Tendina.prototype.bindEvents = function() {
-        $(document).on('click', this.firstLvlSubmenuLink, (function(_this) {
-          return function(event) {
-            var clickedEl;
-            clickedEl = event.currentTarget;
-            if (_this.hasChildenAndIsHidden(clickedEl)) {
-              event.preventDefault();
-              return _this.openSubmenu(_this.firstLvlSubmenu, clickedEl);
-            } else if (_this.isCurrentlyOpen(clickedEl)) {
-              event.preventDefault();
-              return _this.closeSubmenu(clickedEl);
-            }
-          };
-        })(this));
-        return $(document).on('click', this.secondLvlSubmenuLink, (function(_this) {
-          return function(event) {
-            var clickedEl;
-            clickedEl = event.currentTarget;
-            if (_this.hasChildenAndIsHidden(clickedEl)) {
-              event.preventDefault();
-              return _this.openSubmenu(_this.secondLvlSubmenu, clickedEl);
-            } else if (_this.isCurrentlyOpen(clickedEl)) {
-              event.preventDefault();
-              return _this.closeSubmenu(clickedEl);
-            }
-          };
-        })(this));
+        return $(document).on('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this.clickHandler);
+      };
+
+      Tendina.prototype.isFirstLevel = function(clickedEl) {
+        if ($(clickedEl).parent().parent().hasClass('tendina')) {
+          return true;
+        }
+      };
+
+      Tendina.prototype.clickHandler = function(event) {
+        var clickedEl, submenuLevel;
+        clickedEl = event.currentTarget;
+        submenuLevel = this.isFirstLevel(clickedEl) ? this.firstLvlSubmenu : this.secondLvlSubmenu;
+        if (this.hasChildenAndIsHidden(clickedEl)) {
+          event.preventDefault();
+          return this.openSubmenu(submenuLevel, clickedEl);
+        } else if (this.isCurrentlyOpen(clickedEl)) {
+          event.preventDefault();
+          return this.closeSubmenu(clickedEl);
+        }
       };
 
       Tendina.prototype.openSubmenu = function(el, clickedEl) {
+        var $clickedNestedMenu, $firstNestedMenu, $lastNestedMenu;
+        $firstNestedMenu = $(el).find('> ul');
+        $lastNestedMenu = $(el).find('> ul > li > ul');
+        $clickedNestedMenu = $(clickedEl).next('ul');
         $(el).removeClass('selected');
-        $(el).find('> ul').slideUp();
         $(clickedEl).parent().addClass('selected');
-        $(clickedEl).next('ul').slideDown();
+        this.close($firstNestedMenu);
+        this.open($clickedNestedMenu);
         if (el === this.firstLvlSubmenu) {
           $(el).find('> ul > li').removeClass('selected');
-          return $(el).find('> ul > li > ul').slideUp();
+          return this.close($lastNestedMenu);
         }
       };
 
       Tendina.prototype.closeSubmenu = function(el) {
+        var $clickedNestedMenu;
+        $clickedNestedMenu = $(el).next('ul');
         $(el).parent().removeClass('selected');
-        return $(el).next('ul').slideUp();
+        return this.close($clickedNestedMenu);
+      };
+
+      Tendina.prototype.open = function($el) {
+        if (this.options.animate) {
+          return $el.slideDown(this.options.speed);
+        } else {
+          return $el.show();
+        }
+      };
+
+      Tendina.prototype.close = function($el) {
+        if (this.options.animate) {
+          return $el.slideUp(this.options.speed);
+        } else {
+          return $el.hide();
+        }
       };
 
       Tendina.prototype.hasChildenAndIsHidden = function(el) {
