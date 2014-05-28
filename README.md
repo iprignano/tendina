@@ -58,9 +58,29 @@ $('.dropdown').tendina()
 
 The plugin supports three-level-deep nesting (`ul > li > ul > li > ul > li`). Bring on dem categories!
 
-Tendina will hide your nested submenus and manage all interactions with a nice slideUp/Down effect. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
+Tendina will hide your nested submenus and manage all interactions. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
 
-I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**. This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks without adding other Javascript code!
+I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**. This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks without adding other Javascript code.
+
+Options
+===
+
+**Animate** - boolean (default: true)
+
+```
+animate: true
+```
+Set to *false* if you don't want to have slideUp/slideDown animations.
+
+**Speed** - integer (default: 500)
+
+```
+speed: 1000
+```
+
+Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
+
+I'm working on adding more options in the next version. Feel free to open an issue if you think Tendina should include any particular option!
 
 Contributing
 ===
