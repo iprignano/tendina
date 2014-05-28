@@ -70,7 +70,7 @@ Options
 ```
 animate: true
 ```
-Set to *false* if you don't want to have slideUp/slideDown animations.
+Set to `false` if you don't want to have slideUp/slideDown animations.
 
 **Speed** - integer (default: 500)
 
@@ -80,7 +80,7 @@ speed: 1000
 
 Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
 
-I'm working on adding more options in the next version. Feel free to open an issue if you think Tendina should include any particular option!
+*I'm working on adding more options in the next version. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
 
 Contributing
 ===
