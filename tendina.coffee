@@ -128,7 +128,7 @@ Released under the MIT License
     # API
     destroy: ->
       # Remove plugin instance
-      $.removeData @$el.get(0)
+      @$el.removeData 'tendina'
 
       # Unbind events, remove namespace class
       # and show hidden submenus
