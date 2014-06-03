@@ -125,6 +125,7 @@ Released under the MIT License
       };
 
       Tendina.prototype.destroy = function() {
+        $.removeData(this.$el.get(0));
         this._unbindEvents();
         this._showSubmenus();
         return this.$el.removeClass('tendina');
