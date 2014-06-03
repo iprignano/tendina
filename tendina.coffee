@@ -14,15 +14,17 @@ Released under the MIT License
       speed: 500
 
     constructor: (el, options) ->
+      console.log 'init'
       @options = $.extend({}, @defaults, options)
+      @$el     = $(el)
 
       # Checks if options object
       # contains wrong values
-      @checkOptions()
+      @_checkOptions()
 
       # Adds tendina class to element
       # for better reference
-      $(el).addClass('tendina')
+      @$el.addClass('tendina')
 
       # Sets class vars for relevant elements
       @firstLvlSubmenu      = ".tendina > li"
@@ -31,33 +33,37 @@ Released under the MIT License
       @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
 
       # Hides submenus on document.ready
-      @hideSubmenusOnStartup()
+      @hideSubmenus()
 
       # Binds handler functions
       # to clickable elements
-      @bindEvents()
+      @_bindEvents()
 
-    bindEvents: ->
-      $(document).on 'click', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @clickHandler
+    # Private Methods
+    _bindEvents: ->
+      $(document).on 'click', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
 
-    isFirstLevel: (clickedEl) ->
+    _unbindEvents: ->
+      $(document).off 'click', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
+
+    _isFirstLevel: (clickedEl) ->
       # Checks if clicked element
       # is a first level menu
       return true if $(clickedEl).parent().parent().hasClass('tendina')
 
-    clickHandler: (event) =>
+    _clickHandler: (event) =>
       clickedEl    = event.currentTarget
-      submenuLevel = if @isFirstLevel(clickedEl) then @firstLvlSubmenu else @secondLvlSubmenu
+      submenuLevel = if @_isFirstLevel(clickedEl) then @firstLvlSubmenu else @secondLvlSubmenu
 
       # Opens or closes clicked menu
-      if @hasChildenAndIsHidden(clickedEl)
+      if @_hasChildenAndIsHidden(clickedEl)
         event.preventDefault()
-        @openSubmenu(submenuLevel, clickedEl)
-      else if @isCurrentlyOpen(clickedEl)
+        @_openSubmenu(submenuLevel, clickedEl)
+      else if @_isCurrentlyOpen(clickedEl)
         event.preventDefault()
-        @closeSubmenu(clickedEl)
+        @_closeSubmenu(clickedEl)
 
-    openSubmenu: (el, clickedEl) ->
+    _openSubmenu: (el, clickedEl) ->
       $firstNestedMenu   = $(el).find('> ul')
       $lastNestedMenu    = $(el).find('> ul > li > ul')
       $clickedNestedMenu = $(clickedEl).next('ul')
@@ -69,61 +75,74 @@ Released under the MIT License
 
       # Closes all currently open menus
       # and opens the clicked one
-      @close($firstNestedMenu)
-      @open($clickedNestedMenu)
+      @_close($firstNestedMenu)
+      @_open($clickedNestedMenu)
 
       # If clicked element is a first-level
       # menu, closes all opened second-level submenus
       if el is @firstLvlSubmenu
         $(el).find('> ul > li').removeClass 'selected'
-        @close($lastNestedMenu)
+        @_close($lastNestedMenu)
 
-    closeSubmenu: (el) ->
+    _closeSubmenu: (el) ->
       $clickedNestedMenu = $(el).next('ul')
 
       # Removes the selected class from the
       # menu that's being closed
       $(el).parent().removeClass 'selected'
-      @close($clickedNestedMenu)
+      @_close($clickedNestedMenu)
 
-    open: ($el) ->
+    _open: ($el) ->
       if @options.animate
         $el.slideDown(@options.speed)
       else
         $el.show()
 
-    close: ($el) ->
+    _close: ($el) ->
       if @options.animate
         $el.slideUp(@options.speed)
       else
         $el.hide()
 
-    hasChildenAndIsHidden: (el) ->
+    _hasChildenAndIsHidden: (el) ->
       # Checks if there's a nested ul element
       # and, in that case, if it's currently hidden
       $(el).next('ul').length > 0 && $(el).next('ul').is(':hidden')
 
-    isCurrentlyOpen: (el) ->
+    _isCurrentlyOpen: (el) ->
       $(el).parent().hasClass 'selected'
 
-    hideSubmenusOnStartup: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
-
-    checkOptions: ->
+    _checkOptions: ->
       if @options.animate isnt true or false
         console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
       if @options.speed isnt parseInt(@options.speed)
         console.warn "jQuery.fn.Tendina - '#{@options.speed}' is not a valid parameter for the 'speed' option. Falling back to default value."
 
+    # API
+    destroy: ->
+      @_unbindEvents()
+      @showSubmenus()
+      @$el.removeClass 'tendina'
+
+    hideSubmenus: ->
+      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
+      $("#{@firstLvlSubmenu} > ul").removeClass 'selected'
+
+    showSubmenus: ->
+      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
+      $("#{@firstLvlSubmenu}").removeClass 'selected'
+
   # Extends jQuery with the tendina method
   $.fn.extend tendina: (option, args...) ->
     @each ->
       $this = $(this)
-      data = $this.data('tendina')
+      data  = $this.data('tendina')
 
       # Instances a new Tendina class
       # if not already done
       if !data
         $this.data 'tendina', (data = new Tendina(this, option))
+      if typeof option == 'string'
+        data[option].apply(data, args)
 
 ) window.jQuery, window

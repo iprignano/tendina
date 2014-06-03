@@ -19,64 +19,70 @@ Released under the MIT License
       };
 
       function Tendina(el, options) {
-        this.clickHandler = __bind(this.clickHandler, this);
+        this._clickHandler = __bind(this._clickHandler, this);
+        console.log('init');
         this.options = $.extend({}, this.defaults, options);
-        this.checkOptions();
-        $(el).addClass('tendina');
+        this.$el = $(el);
+        this._checkOptions();
+        this.$el.addClass('tendina');
         this.firstLvlSubmenu = ".tendina > li";
         this.secondLvlSubmenu = ".tendina > li > ul > li";
         this.firstLvlSubmenuLink = "" + this.firstLvlSubmenu + " > a";
         this.secondLvlSubmenuLink = "" + this.secondLvlSubmenu + " > a";
-        this.hideSubmenusOnStartup();
-        this.bindEvents();
+        this.hideSubmenus();
+        this._bindEvents();
       }
 
-      Tendina.prototype.bindEvents = function() {
-        return $(document).on('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this.clickHandler);
+      Tendina.prototype._bindEvents = function() {
+        return $(document).on('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._clickHandler);
       };
 
-      Tendina.prototype.isFirstLevel = function(clickedEl) {
+      Tendina.prototype._unbindEvents = function() {
+        return $(document).off('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._clickHandler);
+      };
+
+      Tendina.prototype._isFirstLevel = function(clickedEl) {
         if ($(clickedEl).parent().parent().hasClass('tendina')) {
           return true;
         }
       };
 
-      Tendina.prototype.clickHandler = function(event) {
+      Tendina.prototype._clickHandler = function(event) {
         var clickedEl, submenuLevel;
         clickedEl = event.currentTarget;
-        submenuLevel = this.isFirstLevel(clickedEl) ? this.firstLvlSubmenu : this.secondLvlSubmenu;
-        if (this.hasChildenAndIsHidden(clickedEl)) {
+        submenuLevel = this._isFirstLevel(clickedEl) ? this.firstLvlSubmenu : this.secondLvlSubmenu;
+        if (this._hasChildenAndIsHidden(clickedEl)) {
           event.preventDefault();
-          return this.openSubmenu(submenuLevel, clickedEl);
-        } else if (this.isCurrentlyOpen(clickedEl)) {
+          return this._openSubmenu(submenuLevel, clickedEl);
+        } else if (this._isCurrentlyOpen(clickedEl)) {
           event.preventDefault();
-          return this.closeSubmenu(clickedEl);
+          return this._closeSubmenu(clickedEl);
         }
       };
 
-      Tendina.prototype.openSubmenu = function(el, clickedEl) {
+      Tendina.prototype._openSubmenu = function(el, clickedEl) {
         var $clickedNestedMenu, $firstNestedMenu, $lastNestedMenu;
         $firstNestedMenu = $(el).find('> ul');
         $lastNestedMenu = $(el).find('> ul > li > ul');
         $clickedNestedMenu = $(clickedEl).next('ul');
         $(el).removeClass('selected');
         $(clickedEl).parent().addClass('selected');
-        this.close($firstNestedMenu);
-        this.open($clickedNestedMenu);
+        this._close($firstNestedMenu);
+        this._open($clickedNestedMenu);
         if (el === this.firstLvlSubmenu) {
           $(el).find('> ul > li').removeClass('selected');
-          return this.close($lastNestedMenu);
+          return this._close($lastNestedMenu);
         }
       };
 
-      Tendina.prototype.closeSubmenu = function(el) {
+      Tendina.prototype._closeSubmenu = function(el) {
         var $clickedNestedMenu;
         $clickedNestedMenu = $(el).next('ul');
         $(el).parent().removeClass('selected');
-        return this.close($clickedNestedMenu);
+        return this._close($clickedNestedMenu);
       };
 
-      Tendina.prototype.open = function($el) {
+      Tendina.prototype._open = function($el) {
         if (this.options.animate) {
           return $el.slideDown(this.options.speed);
         } else {
@@ -84,7 +90,7 @@ Released under the MIT License
         }
       };
 
-      Tendina.prototype.close = function($el) {
+      Tendina.prototype._close = function($el) {
         if (this.options.animate) {
           return $el.slideUp(this.options.speed);
         } else {
@@ -92,25 +98,37 @@ Released under the MIT License
         }
       };
 
-      Tendina.prototype.hasChildenAndIsHidden = function(el) {
+      Tendina.prototype._hasChildenAndIsHidden = function(el) {
         return $(el).next('ul').length > 0 && $(el).next('ul').is(':hidden');
       };
 
-      Tendina.prototype.isCurrentlyOpen = function(el) {
+      Tendina.prototype._isCurrentlyOpen = function(el) {
         return $(el).parent().hasClass('selected');
       };
 
-      Tendina.prototype.hideSubmenusOnStartup = function() {
-        return $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
-      };
-
-      Tendina.prototype.checkOptions = function() {
+      Tendina.prototype._checkOptions = function() {
         if (this.options.animate !== true || false) {
           console.warn("jQuery.fn.Tendina - '" + this.options.animate + "' is not a valid parameter for the 'animate' option. Falling back to default value.");
         }
         if (this.options.speed !== parseInt(this.options.speed)) {
           return console.warn("jQuery.fn.Tendina - '" + this.options.speed + "' is not a valid parameter for the 'speed' option. Falling back to default value.");
         }
+      };
+
+      Tendina.prototype.destroy = function() {
+        this._unbindEvents();
+        this.showSubmenus();
+        return this.$el.removeClass('tendina');
+      };
+
+      Tendina.prototype.hideSubmenus = function() {
+        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
+        return $("" + this.firstLvlSubmenu + " > ul").removeClass('selected');
+      };
+
+      Tendina.prototype.showSubmenus = function() {
+        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").show();
+        return $("" + this.firstLvlSubmenu).removeClass('selected');
       };
 
       return Tendina;
@@ -125,7 +143,10 @@ Released under the MIT License
           $this = $(this);
           data = $this.data('tendina');
           if (!data) {
-            return $this.data('tendina', (data = new Tendina(this, option)));
+            $this.data('tendina', (data = new Tendina(this, option)));
+          }
+          if (typeof option === 'string') {
+            return data[option].apply(data, args);
           }
         });
       }

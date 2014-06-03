@@ -84,6 +84,9 @@ Set any integer that represents the animation speed in milliseconds. Works only 
 
 *I'm working on adding more options in the next version. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
 
+Methods
+===
+
 Contributing
 ===
 
