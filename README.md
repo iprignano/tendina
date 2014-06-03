@@ -118,7 +118,7 @@ Will hide all open submenus.
 $('#menu').tendina('showAll')
 ```
 
-Will show all open submenus.
+Will show all submenus.
 
 
 *I'm working on adding more methods in the next versions. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular method!*
