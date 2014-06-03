@@ -14,7 +14,6 @@ Released under the MIT License
       speed: 500
 
     constructor: (el, options) ->
-      console.log 'init'
       @options = $.extend({}, @defaults, options)
       @$el     = $(el)
 
@@ -129,7 +128,7 @@ Released under the MIT License
     # API
     destroy: ->
       @_unbindEvents()
-      @showSubmenus()
+      @_showSubmenus()
       @$el.removeClass 'tendina'
 
     hideAll: ->

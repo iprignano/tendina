@@ -20,7 +20,6 @@ Released under the MIT License
 
       function Tendina(el, options) {
         this._clickHandler = __bind(this._clickHandler, this);
-        console.log('init');
         this.options = $.extend({}, this.defaults, options);
         this.$el = $(el);
         this._checkOptions();
@@ -127,7 +126,7 @@ Released under the MIT License
 
       Tendina.prototype.destroy = function() {
         this._unbindEvents();
-        this.showSubmenus();
+        this._showSubmenus();
         return this.$el.removeClass('tendina');
       };
 
