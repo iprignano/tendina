@@ -99,7 +99,7 @@ Tendina comes with a few handy methods.
 **destroy**
 
 ```javascript
-$('.dropdown').tendina('destroy')
+$('#menu').tendina('destroy')
 ```
 
 Will unbind all events, remove all helper classes and open all menus, restoring the unordered list before Tendina was called.
