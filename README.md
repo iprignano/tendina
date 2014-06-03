@@ -13,7 +13,7 @@ Usage
 To use Tendina, you just need to have some basic markup for your menu. That means you'll have some nested unordered lists, like this:
 
 ```html
-<ul class="dropdown">
+<ul id="menu">
   <li>
     <a href="#">Menu 1</a>
     <ul>
@@ -53,7 +53,7 @@ Next step is to have **jQuery** and **Tendina** in your page:
 Finally, you can simply call the function on your list to transform it in a snappy side menu:
 
 ```javascript
-$('.dropdown').tendina()
+$('#menu').tendina()
 ```
 
 The plugin supports three-level-deep nesting (`ul > li > ul > li > ul > li`). Bring on dem categories!
@@ -65,7 +65,14 @@ I made this plugin just to handle menu interactions in a flexible way. As a resu
 Options
 ===
 
-Tendina accepts an option object.
+Tendina accepts an option object, just like that:
+
+```javascript
+$('#menu').tendina({
+  animate: true,
+  speed: 1000
+});
+```
 
 **Animate** - boolean (default: true)
 
@@ -82,10 +89,39 @@ speed: 1000
 
 Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
 
-*I'm working on adding more options in the next version. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
+*I'm working on adding more options in the next versions. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
 
 Methods
 ===
+
+Tendina comes with a few handy methods.
+
+**destroy**
+
+```javascript
+$('.dropdown').tendina('destroy')
+```
+
+Will unbind all events, remove all helper classes and open all menus, restoring the unordered list before Tendina was called.
+
+**hideAll**
+
+```javascript
+$('#menu').tendina('hideAll')
+```
+
+Will hide all open submenus.
+
+**showAll**
+
+```javascript
+$('#menu').tendina('showAll')
+```
+
+Will show all open submenus.
+
+
+*I'm working on adding more methods in the next versions. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular method!*
 
 Contributing
 ===

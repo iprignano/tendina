@@ -33,7 +33,7 @@ Released under the MIT License
       @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
 
       # Hides submenus on document.ready
-      @hideSubmenus()
+      @_hideSubmenus()
 
       # Binds handler functions
       # to clickable elements
@@ -112,6 +112,14 @@ Released under the MIT License
     _isCurrentlyOpen: (el) ->
       $(el).parent().hasClass 'selected'
 
+    _hideSubmenus: ->
+      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
+      $("#{@firstLvlSubmenu} > ul").removeClass 'selected'
+
+    _showSubmenus: ->
+      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
+      $("#{@firstLvlSubmenu}").removeClass 'selected'
+
     _checkOptions: ->
       if @options.animate isnt true or false
         console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
@@ -124,13 +132,11 @@ Released under the MIT License
       @showSubmenus()
       @$el.removeClass 'tendina'
 
-    hideSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
-      $("#{@firstLvlSubmenu} > ul").removeClass 'selected'
+    hideAll: ->
+      @_hideSubmenus()
 
-    showSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
-      $("#{@firstLvlSubmenu}").removeClass 'selected'
+    showAll: ->
+      @_showSubmenus()
 
   # Extends jQuery with the tendina method
   $.fn.extend tendina: (option, args...) ->

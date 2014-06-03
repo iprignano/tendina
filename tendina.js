@@ -29,7 +29,7 @@ Released under the MIT License
         this.secondLvlSubmenu = ".tendina > li > ul > li";
         this.firstLvlSubmenuLink = "" + this.firstLvlSubmenu + " > a";
         this.secondLvlSubmenuLink = "" + this.secondLvlSubmenu + " > a";
-        this.hideSubmenus();
+        this._hideSubmenus();
         this._bindEvents();
       }
 
@@ -106,6 +106,16 @@ Released under the MIT License
         return $(el).parent().hasClass('selected');
       };
 
+      Tendina.prototype._hideSubmenus = function() {
+        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
+        return $("" + this.firstLvlSubmenu + " > ul").removeClass('selected');
+      };
+
+      Tendina.prototype._showSubmenus = function() {
+        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").show();
+        return $("" + this.firstLvlSubmenu).removeClass('selected');
+      };
+
       Tendina.prototype._checkOptions = function() {
         if (this.options.animate !== true || false) {
           console.warn("jQuery.fn.Tendina - '" + this.options.animate + "' is not a valid parameter for the 'animate' option. Falling back to default value.");
@@ -121,14 +131,12 @@ Released under the MIT License
         return this.$el.removeClass('tendina');
       };
 
-      Tendina.prototype.hideSubmenus = function() {
-        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
-        return $("" + this.firstLvlSubmenu + " > ul").removeClass('selected');
+      Tendina.prototype.hideAll = function() {
+        return this._hideSubmenus();
       };
 
-      Tendina.prototype.showSubmenus = function() {
-        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").show();
-        return $("" + this.firstLvlSubmenu).removeClass('selected');
+      Tendina.prototype.showAll = function() {
+        return this._showSubmenus();
       };
 
       return Tendina;
