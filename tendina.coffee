@@ -1,5 +1,5 @@
 ###
-Tendina jQuery plugin v0.1.2
+Tendina jQuery plugin v0.2.2
 
 Copyright (c) 2014 Ivan Prignano
 Released under the MIT License
