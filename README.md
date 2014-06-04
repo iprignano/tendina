@@ -122,7 +122,7 @@ Methods
 
 Tendina comes with a few handy methods.
 
-### **destroy**
+#### **destroy**
 
 ```javascript
 $('#menu').tendina('destroy')
@@ -130,7 +130,7 @@ $('#menu').tendina('destroy')
 
 Will unbind all events, remove all helper classes and open all menus, restoring the unordered list state before Tendina was called.
 
-### **hideAll**
+#### **hideAll**
 
 ```javascript
 $('#menu').tendina('hideAll')
