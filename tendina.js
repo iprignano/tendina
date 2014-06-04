@@ -70,7 +70,10 @@ Released under the MIT License
         this._open($clickedNestedMenu);
         if (el === this.firstLvlSubmenu) {
           $(el).find('> ul > li').removeClass('selected');
-          return this._close($lastNestedMenu);
+          this._close($lastNestedMenu);
+        }
+        if (this.options.openCallback) {
+          return this.options.openCallback($(clickedEl).parent());
         }
       };
 
@@ -78,7 +81,10 @@ Released under the MIT License
         var $clickedNestedMenu;
         $clickedNestedMenu = $(el).next('ul');
         $(el).parent().removeClass('selected');
-        return this._close($clickedNestedMenu);
+        this._close($clickedNestedMenu);
+        if (this.options.closeCallback) {
+          return this.options.closeCallback($(el).parent());
+        }
       };
 
       Tendina.prototype._open = function($el) {

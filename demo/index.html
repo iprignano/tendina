@@ -41,7 +41,13 @@
     <script>
       $('.dropdown').tendina({
         animate: true,
-        speed: 500
+        speed: 500,
+        openCallback: function($clickedEl) {
+          console.log($clickedEl);
+        },
+        closeCallback: function($clickedEl) {
+          console.log($clickedEl);
+        }
       })
     </script>
   </body>

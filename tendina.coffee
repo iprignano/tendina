@@ -83,6 +83,9 @@ Released under the MIT License
         $(el).find('> ul > li').removeClass 'selected'
         @_close($lastNestedMenu)
 
+      # After opening, fire callback
+      @options.openCallback $(clickedEl).parent() if @options.openCallback
+
     _closeSubmenu: (el) ->
       $clickedNestedMenu = $(el).next('ul')
 
@@ -90,6 +93,9 @@ Released under the MIT License
       # menu that's being closed
       $(el).parent().removeClass 'selected'
       @_close($clickedNestedMenu)
+
+      # After closing, fire callback
+      @options.closeCallback $(el).parent() if @options.closeCallback
 
     _open: ($el) ->
       if @options.animate
