@@ -80,22 +80,25 @@ $('#menu').tendina({
 });
 ```
 
-### **Animate** - boolean (default: true)
+#### **Animate**
+boolean (default: true)
 
 ```javascript
 animate: true
 ```
 Set to `false` if you don't want to have slideUp/slideDown animations.
 
-### **Speed** - integer (default: 500)
+#### **Speed**
+integer (default: 500)
 
 ```javascript
 speed: 1000
 ```
 
-Set the animation speed in milliseconds. Works only if `animate` is `true`.
+Animation speed in milliseconds. Works only if `animate` is `true`.
 
-### **openCallback** - function (parameters: clickedEl)
+#### **openCallback**
+function (parameters: clickedEl)
 
 ```javascript
 openCallback: function(clickedEl) {
@@ -105,7 +108,8 @@ openCallback: function(clickedEl) {
 
 Callback that will be executed once any menu/submenu has been opened.
 
-### **closeCallback** - function (parameters: clickedEl)
+#### **closeCallback**
+function (parameters: clickedEl)
 
 ```javascript
 closeCallback: function(clickedEl) {
@@ -138,7 +142,7 @@ $('#menu').tendina('hideAll')
 
 Will hide all open submenus.
 
-### **showAll**
+#### **showAll**
 
 ```javascript
 $('#menu').tendina('showAll')
