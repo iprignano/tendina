@@ -49,7 +49,7 @@ That means you'll have some nested unordered lists, like this:
 
 Any menu that doesn't have child menus will be treated like a normal link.
 
-**Heads up!** Tendina uses `<a>` tags for DOM traversing and click events management. Don't let them out! :wolf:
+> **Heads up!** Tendina uses `<a>` tags for DOM traversing and click events management. Don't let them out! :wolf:
 
 Next step is to have **jQuery** (>= 1.5.x) and **Tendina** loaded in your page:
 
@@ -63,6 +63,8 @@ Finally, you can simply call the function on your list to transform it in a snap
 ```javascript
 $('#menu').tendina()
 ```
+
+***
 
 The plugin supports three-level-deep menu nesting (`ul li => ul li => ul li`). Bring on dem categories!
 
