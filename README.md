@@ -93,7 +93,7 @@ Set to `false` if you don't want to have slideUp/slideDown animations.
 speed: 1000
 ```
 
-Sets animation speed in milliseconds.
+Set the animation speed in milliseconds. Works only if `animate` is `true`.
 
 **openCallback** - function (parameters: clickedEl)
 
@@ -114,8 +114,6 @@ closeCallback: function(clickedEl) {
 ```
 
 Callback that will be executed once any menu/submenu has been closed.
-
-Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
 
 *I'm working on adding more options in the next versions. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
 
