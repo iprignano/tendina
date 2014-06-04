@@ -93,6 +93,8 @@ Set to `false` if you don't want to have slideUp/slideDown animations.
 speed: 1000
 ```
 
+Sets animation speed in milliseconds.
+
 **openCallback** - function (parameters: clickedEl)
 
 ```javascript
@@ -101,6 +103,8 @@ openCallback: function(clickedEl) {
 }
 ```
 
+Callback that will be executed once any menu/submenu has been opened.
+
 **closeCallback** - function (parameters: clickedEl)
 
 ```javascript
@@ -108,6 +112,8 @@ closeCallback: function(clickedEl) {
   console.log(clickedEl); // Returns clicked jQuery li element
 }
 ```
+
+Callback that will be executed once any menu/submenu has been closed.
 
 Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
 
