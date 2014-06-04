@@ -12,7 +12,9 @@ A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 Usage
 ===
 
-To use Tendina, you just need to have some basic markup for your menu. That means you'll have some nested unordered lists, like this:
+To use Tendina, you just need to have some basic markup for your menu.
+
+That means you'll have some nested unordered lists, like this:
 
 ```html
 <ul id="menu">
@@ -45,7 +47,9 @@ To use Tendina, you just need to have some basic markup for your menu. That mean
 </ul>
 ```
 
-Next step is to have **jQuery** and **Tendina** in your page:
+**Heads up!** Tendina uses <a> tags for DOM traversing and click events management. Don't let them out! :wolf:
+
+Next step is to have **jQuery** (>= 1.5.x) and **Tendina** loaded in your page:
 
 ```html
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -58,11 +62,12 @@ Finally, you can simply call the function on your list to transform it in a snap
 $('#menu').tendina()
 ```
 
-The plugin supports three-level-deep nesting (`ul > li > ul > li > ul > li`). Bring on dem categories!
+The plugin supports three-level-deep menu nesting (`ul li => ul li => ul li`). Bring on dem categories!
 
-Tendina will hide your nested submenus and manage all interactions. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree)!
+Tendina will hide your nested submenus and manage all interactions. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree).
 
-I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**. This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently open menu, so you can customize its looks without adding other Javascript code.
+I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**.
+ This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently opened menu, so you can customize its looks without adding other Javascript code.
 
 Options
 ===
@@ -104,7 +109,7 @@ function (parameters: clickedEl)
 
 ```javascript
 openCallback: function(clickedEl) {
-  console.log(clickedEl); // Returns clicked jQuery li element
+  console.log(clickedEl); // Returns clicked jQuery <li> object
 }
 ```
 
@@ -115,7 +120,7 @@ function (parameters: clickedEl)
 
 ```javascript
 closeCallback: function(clickedEl) {
-  console.log(clickedEl); // Returns clicked jQuery li element
+  console.log(clickedEl); // Returns clicked jQuery <li> object
 }
 ```
 
