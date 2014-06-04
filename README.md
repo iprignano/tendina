@@ -87,6 +87,22 @@ Set to `false` if you don't want to have slideUp/slideDown animations.
 speed: 1000
 ```
 
+**openCallback** - function (parameters: clickedEl)
+
+```javascript
+openCallback: function(clickedEl) {
+  console.log(clickedEl); // Returns clicked jQuery li element
+}
+```
+
+**closeCallback** - function (parameters: clickedEl)
+
+```javascript
+closeCallback: function(clickedEl) {
+  console.log(clickedEl); // Returns clicked jQuery li element
+}
+```
+
 Set any integer that represents the animation speed in milliseconds. Works only if `animate` is `true`.
 
 *I'm working on adding more options in the next versions. Feel free to [open an issue](https://github.com/iprignano/tendina/issues) if you think Tendina should include any particular option!*
