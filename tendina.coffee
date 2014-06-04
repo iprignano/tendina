@@ -40,10 +40,10 @@ Released under the MIT License
 
     # Private Methods
     _bindEvents: ->
-      $(document).on 'click', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
+      $(document).on 'click.tendina', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
 
     _unbindEvents: ->
-      $(document).off 'click', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
+      $(document).off 'click.tendina'
 
     _isFirstLevel: (clickedEl) ->
       # Checks if clicked element
@@ -135,6 +135,7 @@ Released under the MIT License
       @_unbindEvents()
       @_showSubmenus()
       @$el.removeClass 'tendina'
+      @$el.find('.selected').removeClass('selected')
 
     hideAll: ->
       @_hideSubmenus()

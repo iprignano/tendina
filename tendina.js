@@ -33,11 +33,11 @@ Released under the MIT License
       }
 
       Tendina.prototype._bindEvents = function() {
-        return $(document).on('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._clickHandler);
+        return $(document).on('click.tendina', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._clickHandler);
       };
 
       Tendina.prototype._unbindEvents = function() {
-        return $(document).off('click', "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._clickHandler);
+        return $(document).off('click.tendina');
       };
 
       Tendina.prototype._isFirstLevel = function(clickedEl) {
@@ -128,7 +128,8 @@ Released under the MIT License
         this.$el.removeData('tendina');
         this._unbindEvents();
         this._showSubmenus();
-        return this.$el.removeClass('tendina');
+        this.$el.removeClass('tendina');
+        return this.$el.find('.selected').removeClass('selected');
       };
 
       Tendina.prototype.hideAll = function() {
