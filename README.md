@@ -70,7 +70,13 @@ Tendina accepts an option object, just like that:
 ```javascript
 $('#menu').tendina({
   animate: true,
-  speed: 1000
+  speed: 1000,
+  openCallback: function(clickedEl) {
+    clickedEl.addClass('opened');
+  },
+  closeCallback: function(clickedEl) {
+    clickedEl.addClass('closed');
+  }
 });
 ```
 
