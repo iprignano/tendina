@@ -27,8 +27,8 @@ To use Tendina, you just need to have some basic markup for your menu. That mean
       <li><a href="#">Submenu 2</a></li>
       <li><a href="#">Submenu 2</a>
         <ul>
-          <li>Subsubmenu 2</li>
-          <li>Subsubmenu 2</li>
+          <li><a href="#">Subsubmenu 2</a></li>
+          <li><a href="#">Subsubmenu 2</a></li>
         </ul>
       </li>
     </ul>
@@ -80,14 +80,14 @@ $('#menu').tendina({
 });
 ```
 
-**Animate** - boolean (default: true)
+### **Animate** - boolean (default: true)
 
 ```javascript
 animate: true
 ```
 Set to `false` if you don't want to have slideUp/slideDown animations.
 
-**Speed** - integer (default: 500)
+### **Speed** - integer (default: 500)
 
 ```javascript
 speed: 1000
@@ -95,7 +95,7 @@ speed: 1000
 
 Set the animation speed in milliseconds. Works only if `animate` is `true`.
 
-**openCallback** - function (parameters: clickedEl)
+### **openCallback** - function (parameters: clickedEl)
 
 ```javascript
 openCallback: function(clickedEl) {
@@ -105,7 +105,7 @@ openCallback: function(clickedEl) {
 
 Callback that will be executed once any menu/submenu has been opened.
 
-**closeCallback** - function (parameters: clickedEl)
+### **closeCallback** - function (parameters: clickedEl)
 
 ```javascript
 closeCallback: function(clickedEl) {
@@ -122,15 +122,15 @@ Methods
 
 Tendina comes with a few handy methods.
 
-**destroy**
+### **destroy**
 
 ```javascript
 $('#menu').tendina('destroy')
 ```
 
-Will unbind all events, remove all helper classes and open all menus, restoring the unordered list before Tendina was called.
+Will unbind all events, remove all helper classes and open all menus, restoring the unordered list state before Tendina was called.
 
-**hideAll**
+### **hideAll**
 
 ```javascript
 $('#menu').tendina('hideAll')
@@ -138,7 +138,7 @@ $('#menu').tendina('hideAll')
 
 Will hide all open submenus.
 
-**showAll**
+### **showAll**
 
 ```javascript
 $('#menu').tendina('showAll')
@@ -154,7 +154,7 @@ Contributing
 
 Contributions are welcome! In order to contribute, you can use the [Fork & Pull Model](https://help.github.com/articles/using-pull-requests#fork--pull).
 
-Bonus sugar: Tendina comes with a easy-to-use Grunt configuration.
+Tendina comes with a easy-to-use Grunt configuration.
 
 Given you have `npm` and `grunt-cli` installed, you just need to run `npm install` in the project folder once to install all the dev dependencies.
 Then, just execute `grunt watch`: this way Grunt will spawn a watcher that will compile the Coffee and minify the resulting Javascript everytime you edit `tendina.coffee`.
