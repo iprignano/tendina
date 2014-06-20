@@ -12,6 +12,8 @@ Released under the MIT License
     defaults:
       animate: true
       speed: 500
+      onHover: false
+      hoverDelay: 200
 
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
@@ -34,78 +36,86 @@ Released under the MIT License
       # Hides submenus on document.ready
       @_hideSubmenus()
 
-      # Binds handler functions
-      # to clickable elements
+      # Set the event type (hover/click)
+      @mouseEvent = if @options.onHover is true then 'mouseenter.tendina' else 'click.tendina'
+
+      # Binds handler function
+      # to interactive elements
       @_bindEvents()
 
     # Private Methods
     _bindEvents: ->
-      $(document).on 'click.tendina', "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_clickHandler
+      $(document).on @mouseEvent, "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_eventHandler
 
     _unbindEvents: ->
-      $(document).off 'click.tendina'
+      $(document).off @mouseEvent
 
-    _isFirstLevel: (clickedEl) ->
-      # Checks if clicked element
+    _isFirstLevel: (targetEl) ->
+      # Checks if target element
       # is a first level menu
-      return true if $(clickedEl).parent().parent().hasClass('tendina')
+      return true if $(targetEl).parent().parent().hasClass('tendina')
 
-    _clickHandler: (event) =>
-      clickedEl    = event.currentTarget
-      submenuLevel = if @_isFirstLevel(clickedEl) then @firstLvlSubmenu else @secondLvlSubmenu
+    _eventHandler: (event) =>
+      targetEl    = event.currentTarget
+      submenuLevel = if @_isFirstLevel(targetEl) then @firstLvlSubmenu else @secondLvlSubmenu
 
-      # Opens or closes clicked menu
-      if @_hasChildenAndIsHidden(clickedEl)
+      # Opens or closes target menu
+      if @_hasChildenAndIsHidden(targetEl)
         event.preventDefault()
-        @_openSubmenu(submenuLevel, clickedEl)
-      else if @_isCurrentlyOpen(clickedEl)
+        if @options.onHover
+          setTimeout =>
+            @_openSubmenu(submenuLevel, targetEl) if $(targetEl).is(':hover')
+          , @options.hoverDelay
+        else
+          @_openSubmenu(submenuLevel, targetEl)
+      else if @_isCurrentlyOpen(targetEl)
         event.preventDefault()
-        @_closeSubmenu(clickedEl)
+        @_closeSubmenu(targetEl) unless @options.onHover
 
-    _openSubmenu: (el, clickedEl) ->
-      $firstNestedMenu   = $(el).find('> ul')
-      $lastNestedMenu    = $(el).find('> ul > li > ul')
-      $clickedNestedMenu = $(clickedEl).next('ul')
+    _openSubmenu: (el, targetEl) ->
+      $firstNestedMenu  = $(el).find('> ul')
+      $lastNestedMenu   = $(el).find('> ul > li > ul')
+      $targetNestedMenu = $(targetEl).next('ul')
 
       # Removes selected class from all the current
-      # level menus and adds it to clicked menu
+      # level menus and adds it to target menu
       $(el).removeClass 'selected'
-      $(clickedEl).parent().addClass 'selected'
+      $(targetEl).parent().addClass 'selected'
 
       # Closes all currently open menus
-      # and opens the clicked one
+      # and opens the targeted one
       @_close($firstNestedMenu)
-      @_open($clickedNestedMenu)
+      @_open($targetNestedMenu)
 
-      # If clicked element is a first-level
+      # If target element is a first-level
       # menu, closes all opened second-level submenus
       if el is @firstLvlSubmenu
         $(el).find('> ul > li').removeClass 'selected'
         @_close($lastNestedMenu)
 
       # After opening, fire callback
-      @options.openCallback $(clickedEl).parent() if @options.openCallback
+      @options.openCallback $(targetEl).parent() if @options.openCallback
 
     _closeSubmenu: (el) ->
-      $clickedNestedMenu = $(el).next('ul')
+      $targetNestedMenu = $(el).next('ul')
 
       # Removes the selected class from the
       # menu that's being closed
       $(el).parent().removeClass 'selected'
-      @_close($clickedNestedMenu)
+      @_close($targetNestedMenu)
 
       # After closing, fire callback
       @options.closeCallback $(el).parent() if @options.closeCallback
 
     _open: ($el) ->
       if @options.animate
-        $el.slideDown(@options.speed)
+        $el.stop(true).slideDown(@options.speed)
       else
         $el.show()
 
     _close: ($el) ->
       if @options.animate
-        $el.slideUp(@options.speed)
+        $el.stop(true).slideUp(@options.speed)
       else
         $el.hide()
 
@@ -130,6 +140,8 @@ Released under the MIT License
         console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
       if @options.speed isnt parseInt(@options.speed)
         console.warn "jQuery.fn.Tendina - '#{@options.speed}' is not a valid parameter for the 'speed' option. Falling back to default value."
+      if @options.onHover isnt true or false
+        console.warn "jQuery.fn.Tendina - '#{@options.onHover}' is not a valid parameter for the 'onHover' option. Falling back to default value."
 
     # API
     destroy: ->
