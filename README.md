@@ -108,6 +108,24 @@ speed: 1000
 
 Animation speed in milliseconds. Works only if `animate` is `true`.
 
+#### **onHover**
+boolean (default: false)
+
+```javascript
+onHover: true
+```
+
+Set to true if you want Tendina to open menus on mouse hover.
+
+#### **hoverDelay**
+integer (default: 200)
+
+```javascript
+hoverDelay: 350
+```
+
+The delay after which Tendina will open menus on hover. The default value fits almost any use case, but if you want to finetune it, go for it!
+
 #### **openCallback**
 function (parameters: clickedEl)
 
