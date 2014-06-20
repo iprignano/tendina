@@ -51,7 +51,7 @@ Any menu that doesn't have child menus will be treated like a normal link.
 
 > **Heads up!** Tendina uses `<a>` tags for DOM traversing and click events management. Don't let them out! :wolf:
 
-Next step is to have **jQuery** (>= 1.5.x) and **Tendina** loaded in your page:
+Next step is to have **jQuery** (>= 1.7.x) and **Tendina** loaded in your page:
 
 ```html
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
