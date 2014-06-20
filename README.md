@@ -82,6 +82,8 @@ Tendina accepts an option object, just like that:
 $('#menu').tendina({
   animate: true,
   speed: 1000,
+  onHover: true,
+  hoverDelay: 300,
   openCallback: function(clickedEl) {
     clickedEl.addClass('opened');
   },
