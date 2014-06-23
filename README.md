@@ -66,9 +66,17 @@ $('#menu').tendina()
 
 ***
 
-The plugin supports three-level-deep menu nesting (`ul li => ul li => ul li`). Bring on dem categories!
+#### What Tendina does
+- Provides a super easy way to setup sidemenus in a matter of minutes
+- Supports three-level-deep menu nesting (`ul li => ul li => ul li`)
+- Hides your nested submenus and manages all interactions
+- Handles dinamically added elements (nice to have when building a menu from a JSON)
+- Supports multiple menu initializations on the same page
+- It's super lightweight – 4kb minified!
 
-Tendina will hide your nested submenus and manage all interactions. You can even call Tendina on dinamically added elements (nice to have when building a menu from a JSON tree).
+#### What Tendina does not
+- Improve your social life
+- Pollute your stylesheets with unnecessary CSS (read below)
 
 I made this plugin just to handle menu interactions in a flexible way. As a result, Tendina comes with **no styles at all**.
 This means you don't need to override useless CSS classes, and you have total control on the styling of your menu. Additionally, Tendina will add a "selected" class to the currently opened menu, so you can customize its looks without adding other Javascript code.
