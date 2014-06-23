@@ -149,11 +149,11 @@ Released under the MIT License
       $("#{@firstLvlSubmenu}").removeClass 'selected'
 
     _checkOptions: ->
-      if @options.animate isnt true or false
+      if @options.animate isnt true and @options.animate isnt false
         console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
-      if @options.speed isnt parseInt(@options.speed)
+      if @options.speed   isnt parseInt(@options.speed)
         console.warn "jQuery.fn.Tendina - '#{@options.speed}' is not a valid parameter for the 'speed' option. Falling back to default value."
-      if @options.onHover isnt true or false
+      if @options.onHover isnt true and @options.onHover isnt false
         console.warn "jQuery.fn.Tendina - '#{@options.onHover}' is not a valid parameter for the 'onHover' option. Falling back to default value."
 
     # API
