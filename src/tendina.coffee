@@ -23,13 +23,20 @@ Released under the MIT License
       # contains wrong values
       @_checkOptions()
 
+      # Gets element selector - needed
+      # for multiple menu initialization
+      @elSelector = @_getSelector(@$el)
+
       # Adds tendina class to element
       # for better reference
       @$el.addClass('tendina')
 
-      # Sets class vars for relevant elements
-      @firstLvlSubmenu      = ".tendina > li"
-      @secondLvlSubmenu     = ".tendina > li > ul > li"
+      # Sets class variables for relevant elements.
+      # I'm doing this instead of wrapping every element
+      # in a jQuery object in order to correctly
+      # bind events to dynamically added elements
+      @firstLvlSubmenu      = "#{@elSelector} > li"
+      @secondLvlSubmenu     = "#{@elSelector} > li > ul > li"
       @firstLvlSubmenuLink  = "#{@firstLvlSubmenu} > a"
       @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
 
@@ -49,6 +56,12 @@ Released under the MIT License
 
     _unbindEvents: ->
       $(document).off @mouseEvent
+
+    _getSelector: (el) ->
+      firstClass = $(el).attr('class').split(' ')[0]
+      elId       = $(el).attr('id')
+
+      if (elId isnt undefined) then "##{elId}" else ".#{firstClass}"
 
     _isFirstLevel: (targetEl) ->
       # Checks if target element
