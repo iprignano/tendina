@@ -58,7 +58,7 @@ Released under the MIT License
       $(document).off @mouseEvent
 
     _getSelector: (el) ->
-      firstClass = $(el).attr('class').split(' ')[0]
+      firstClass = $(el).attr('class')?.split(' ')[0]
       elId       = $(el).attr('id')
 
       if (elId isnt undefined) then "##{elId}" else ".#{firstClass}"
