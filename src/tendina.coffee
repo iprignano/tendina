@@ -14,6 +14,7 @@ Released under the MIT License
       speed: 500
       onHover: false
       hoverDelay: 200
+      defaultMenu: null
 
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
@@ -49,6 +50,10 @@ Released under the MIT License
       # Binds handler function
       # to interactive elements
       @_bindEvents()
+
+      # Opens a default menu if specified
+      # in the options
+      @_openDefaultMenu(@options.defaultMenu) if @options.defaultMenu isnt null
 
     # Private Methods
     _bindEvents: ->
@@ -147,6 +152,13 @@ Released under the MIT License
     _showSubmenus: ->
       $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
       $("#{@firstLvlSubmenu}").removeClass 'selected'
+
+    _openDefaultMenu: (selector) ->
+      defaultMenu   = @$el.find(selector)
+      closestParent = defaultMenu.closest('ul')
+
+      if @_hasChildenAndIsHidden(closestParent)
+        console.log closestParent
 
     _checkOptions: ->
       if @options.animate isnt true and @options.animate isnt false

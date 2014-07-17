@@ -9,29 +9,29 @@
   <body>
     <ul class="dropdown">
       <li>
-        <a href="#">Menu 1</a>
+        <a class="snacks" href="#">Snacks</a>
         <ul>
-          <li><a href="#">Submenu 1</a></li>
+          <li><a class="snickers" href="#">Snickers</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">Menu 2</a>
+        <a class="drinks" href="#">Drinks</a>
         <ul>
-          <li><a href="#">Submenu 2</a></li>
-          <li><a href="#">Submenu 2</a></li>
-          <li><a href="#">Submenu w/ childrens</a>
+          <li><a class="coke" href="#">Coca Cola</a></li>
+          <li><a class="fanta" href="#">Fanta</a></li>
+          <li><a class="cocktails" href="#">Cocktails</a>
             <ul>
-              <li>Subsubmenu 2</li>
-              <li>Subsubmenu 2</li>
+              <li class="long-island">Long Island Ice Tea</li>
+              <li class="gin-lemon">Gin Lemon</li>
             </ul>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#">Menu 3</a>
+        <a class="meat" href="#">Meat</a>
         <ul>
-          <li><a href="#">Submenu 3</a></li>
-          <li><a href="#">Submenu 3</a></li>
+          <li><a class="beef" href="#">Beef</a></li>
+          <li><a class="pork" href="#">Pork</a></li>
         </ul>
       </li>
     </ul>
@@ -42,14 +42,9 @@
       $('.dropdown').tendina({
         animate: true,
         speed: 500,
-        onHover: true,
+        onHover: false,
         hoverDelay: 300,
-        openCallback: function($clickedEl) {
-          console.log($clickedEl);
-        },
-        closeCallback: function($clickedEl) {
-          console.log($clickedEl);
-        }
+        defaultMenu: '.cocktails'
       })
     </script>
   </body>
