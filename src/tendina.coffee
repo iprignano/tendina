@@ -155,8 +155,8 @@ Released under the MIT License
       $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
       $("#{@firstLvlSubmenu}").removeClass 'selected'
 
-    _openActiveMenu: (selector) ->
-      $activeMenu    = @$el.find(selector)
+    _openActiveMenu: (element) ->
+      $activeMenu    = if element instanceof jQuery then element else @$el.find(element)
       $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
       # Third and second level submenus

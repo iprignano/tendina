@@ -92,6 +92,7 @@ $('#menu').tendina({
   speed: 1000,
   onHover: true,
   hoverDelay: 300,
+  activeMenu: $('.my-active-menu')
   openCallback: function(clickedEl) {
     clickedEl.addClass('opened');
   },
@@ -135,6 +136,17 @@ hoverDelay: 350
 ```
 
 The delay after which Tendina will open menus on hover. The default value fits almost any use case, but if you want to finetune it, go for it!
+
+#### **activeMenu**
+string or jQuery object (default: null)
+
+```javascript
+activeMenu: '.my-active-category'
+// or
+activeMenu: $('.my-active-category')
+```
+
+The active menu that will be open when a new Tendina menu is created. This is very handy if you want to show your users where they are, since Tendina will add the "selected" class to the active menu. You can pass a selector option or a jQuery object.
 
 #### **openCallback**
 function (parameters: clickedEl)
