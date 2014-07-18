@@ -44,7 +44,13 @@
         speed: 500,
         onHover: false,
         hoverDelay: 300,
-        activeMenu: '.gin-lemon'
+        activeMenu: '.cocktails',
+        openCallback: function(clickedEl) {
+          console.log('Hey dude!');
+        },
+        closeCallback: function(clickedEl) {
+          console.log('Bye dude!');
+        }
       })
     </script>
   </body>

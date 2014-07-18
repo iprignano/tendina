@@ -51,11 +51,13 @@ Released under the MIT License
       # to interactive elements
       @_bindEvents()
 
-      # Opens a default menu if specified
-      # in the options
+      # Opens an active menu
+      # if specified in the options
       @_openActiveMenu(@options.activeMenu) if @options.activeMenu isnt null
 
+    # ==================
     # Private Methods
+    # ==================
     _bindEvents: ->
       $(document).on @mouseEvent, "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_eventHandler
 
@@ -155,17 +157,19 @@ Released under the MIT License
 
     _openActiveMenu: (selector) ->
       $activeMenu    = @$el.find(selector)
-      $closestParent = $activeMenu.closest('ul').parents('li').find('> a')
+      $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
-      # Third and second level menus
-      if @_hasChildenAndIsHidden($closestParent)
-        $closestParent.next('ul').show()
+      # Third and second level submenus
+      if @_hasChildenAndIsHidden($activeParents)
+        $activeParents.next('ul').show()
       # First level menu
       else
         $activeMenu.next('ul').show()
 
       # Adds selected class to opened menu
+      # and all its parents
       $activeMenu.parent().addClass 'selected'
+      $activeParents.parent().addClass 'selected'
 
     _checkOptions: ->
       if @options.animate isnt true and @options.animate isnt false
@@ -175,7 +179,9 @@ Released under the MIT License
       if @options.onHover isnt true and @options.onHover isnt false
         console.warn "jQuery.fn.Tendina - '#{@options.onHover}' is not a valid parameter for the 'onHover' option. Falling back to default value."
 
+    # ==================
     # API
+    # ==================
     destroy: ->
       # Remove plugin instance
       @$el.removeData 'tendina'
@@ -193,7 +199,9 @@ Released under the MIT License
     showAll: ->
       @_showSubmenus()
 
-  # Extends jQuery with the tendina method
+  # ==================
+  # jQuery Extend
+  # ==================
   $.fn.extend tendina: (option, args...) ->
     @each ->
       $this = $(this)
