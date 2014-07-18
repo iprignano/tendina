@@ -14,7 +14,7 @@ Released under the MIT License
       speed: 500
       onHover: false
       hoverDelay: 200
-      defaultMenu: null
+      activeMenu: null
 
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
@@ -53,7 +53,7 @@ Released under the MIT License
 
       # Opens a default menu if specified
       # in the options
-      @_openDefaultMenu(@options.defaultMenu) if @options.defaultMenu isnt null
+      @_openActiveMenu(@options.activeMenu) if @options.activeMenu isnt null
 
     # Private Methods
     _bindEvents: ->
@@ -74,7 +74,7 @@ Released under the MIT License
       return true if $(targetEl).parent().parent().hasClass('tendina')
 
     _eventHandler: (event) =>
-      targetEl    = event.currentTarget
+      targetEl     = event.currentTarget
       submenuLevel = if @_isFirstLevel(targetEl) then @firstLvlSubmenu else @secondLvlSubmenu
 
       # Opens or closes target menu
@@ -153,12 +153,19 @@ Released under the MIT License
       $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
       $("#{@firstLvlSubmenu}").removeClass 'selected'
 
-    _openDefaultMenu: (selector) ->
-      defaultMenu   = @$el.find(selector)
-      closestParent = defaultMenu.closest('ul')
+    _openActiveMenu: (selector) ->
+      $activeMenu    = @$el.find(selector)
+      $closestParent = $activeMenu.closest('ul').parents('li').find('> a')
 
-      if @_hasChildenAndIsHidden(closestParent)
-        console.log closestParent
+      # Third and second level menus
+      if @_hasChildenAndIsHidden($closestParent)
+        $closestParent.next('ul').show()
+      # First level menu
+      else
+        $activeMenu.next('ul').show()
+
+      # Adds selected class to opened menu
+      $activeMenu.parent().addClass 'selected'
 
     _checkOptions: ->
       if @options.animate isnt true and @options.animate isnt false

@@ -75,3 +75,8 @@ table {
       color: gray; }
     .dropdown li > ul li > ul li {
       padding: 10px 30px; }
+      .dropdown li > ul li > ul li a {
+        color: black;
+        font-size: 12px;
+        text-transform: none;
+        padding: 0; }
