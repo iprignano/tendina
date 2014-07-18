@@ -92,7 +92,7 @@ $('#menu').tendina({
   speed: 1000,
   onHover: true,
   hoverDelay: 300,
-  activeMenu: $('.my-active-menu')
+  activeMenu: $('.my-active-menu'),
   openCallback: function(clickedEl) {
     clickedEl.addClass('opened');
   },
