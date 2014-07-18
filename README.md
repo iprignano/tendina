@@ -146,7 +146,7 @@ activeMenu: '.my-active-category'
 activeMenu: $('.my-active-category')
 ```
 
-The active menu that will be open when a new Tendina menu is created. This is very handy if you want to show your users where they are, since Tendina will add the "selected" class to the active menu. You can pass a selector option or a jQuery object.
+The active menu that will be open when a new Tendina menu is created. This is very handy if you want to show your users where they are, since Tendina will add the "selected" class to the active menu (and its parents). You can pass a selector option or a jQuery object.
 
 #### **openCallback**
 function (parameters: clickedEl)
