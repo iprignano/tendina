@@ -26,6 +26,10 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    ".gitignore",
+    "Gruntfile.coffee",
+    "package.json",
+    "tendina.jquery.json"
   ]
 }
