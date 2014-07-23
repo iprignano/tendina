@@ -1,0 +1,31 @@
+{
+  "name": "tendina",
+  "version": "0.9.9",
+  "homepage": "https://github.com/iprignano/tendina",
+  "authors": [
+    "Ivan Prignano <ivanprignano@gmail.com>"
+  ],
+  "description": "A super easy-to-use jQuery plugin to rapidly build dropdown side menus",
+  "main": "dist/tendina.js",
+  "keywords": [
+    "jquery",
+    "tendina",
+    "menu",
+    "vertical",
+    "accordion",
+    "side",
+    "menu",
+    "sidemenu",
+    "reveal",
+    "animation"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "src",
+    "demo",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
