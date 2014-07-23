@@ -1,6 +1,6 @@
 
 /*
-Tendina jQuery plugin v0.9.9
+Tendina jQuery plugin v0.10.0
 
 Copyright (c) 2014 Ivan Prignano
 Released under the MIT License
