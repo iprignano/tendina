@@ -5,19 +5,19 @@ module.exports = (grunt)->
     coffee:
       compile:
         files:
-          "lib/tendina.js": "src/tendina.coffee"
+          "dist/tendina.js": "src/tendina.coffee"
 
     uglify:
       target:
         files:
-          "lib/tendina.min.js": "lib/tendina.js"
+          "dist/tendina.min.js": "dist/tendina.js"
 
     watch:
       coffee:
         files: ["src/*.coffee"]
         tasks: ["coffee:compile"]
       uglify:
-        files: ["lib/tendina.js"]
+        files: ["dist/tendina.js"]
         tasks: ["uglify:target"]
 
   grunt.loadNpmTasks "grunt-contrib-coffee"
