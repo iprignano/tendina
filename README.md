@@ -9,7 +9,7 @@ A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 
 [Download Zip Archive](https://github.com/iprignano/tendina/archive/master.zip) or clone the repo!
 
-Install via Bower: `bower install tendina`
+If you like Bower: `bower install tendina`
 
 Usage
 ===
