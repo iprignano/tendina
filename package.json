@@ -1,6 +1,6 @@
 {
   "name": "Tendina",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "A super easy-to-use jQuery plugin to rapidly build dropdown side menus",
   "main": "dist/tendina.js",
   "scripts": {
