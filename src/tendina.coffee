@@ -135,13 +135,13 @@ Released under the MIT License
 
     _open: ($el) ->
       if @options.animate
-        $el.stop(true).slideDown(@options.speed)
+        $el.stop(true, true).slideDown(@options.speed)
       else
         $el.show()
 
     _close: ($el) ->
       if @options.animate
-        $el.stop(true).slideUp(@options.speed)
+        $el.stop(true, true).slideUp(@options.speed)
       else
         $el.hide()
 

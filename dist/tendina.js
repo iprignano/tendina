@@ -123,7 +123,7 @@ Released under the MIT License
 
       Tendina.prototype._open = function($el) {
         if (this.options.animate) {
-          return $el.stop(true).slideDown(this.options.speed);
+          return $el.stop(true, true).slideDown(this.options.speed);
         } else {
           return $el.show();
         }
@@ -131,7 +131,7 @@ Released under the MIT License
 
       Tendina.prototype._close = function($el) {
         if (this.options.animate) {
-          return $el.stop(true).slideUp(this.options.speed);
+          return $el.stop(true, true).slideUp(this.options.speed);
         } else {
           return $el.hide();
         }
