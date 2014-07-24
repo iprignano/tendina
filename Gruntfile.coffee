@@ -9,6 +9,8 @@ module.exports = (grunt)->
 
     uglify:
       target:
+        options:
+          banner: '/*!\nTendina jQuery plugin v<%= pkg.version %>\nCopyright (c) 2014 Ivan Prignano\nReleased under the MIT License\n*/'
         files:
           "dist/tendina.min.js": "dist/tendina.js"
 
