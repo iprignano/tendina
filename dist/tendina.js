@@ -109,10 +109,13 @@ Released under the MIT License
       };
 
       Tendina.prototype._closeSubmenu = function(el) {
-        var $targetNestedMenu;
+        var $targetNestedMenu, $targetNestedOpenSubmenu;
         $targetNestedMenu = $(el).next('ul');
+        $targetNestedOpenSubmenu = $targetNestedMenu.find('> li.selected');
         $(el).parent().removeClass('selected');
         this._close($targetNestedMenu);
+        $targetNestedOpenSubmenu.removeClass('selected');
+        this._close($targetNestedOpenSubmenu.find('> ul'));
         if (this.options.closeCallback) {
           return this.options.closeCallback($(el).parent());
         }

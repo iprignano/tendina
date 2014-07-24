@@ -118,11 +118,17 @@ Released under the MIT License
 
     _closeSubmenu: (el) ->
       $targetNestedMenu = $(el).next('ul')
+      $targetNestedOpenSubmenu = $targetNestedMenu.find('> li.selected')
 
       # Removes the selected class from the
       # menu that's being closed
       $(el).parent().removeClass 'selected'
       @_close($targetNestedMenu)
+
+      # Removes the selected class from
+      # any open nested submenu and closes it
+      $targetNestedOpenSubmenu.removeClass 'selected'
+      @_close($targetNestedOpenSubmenu.find('> ul'))
 
       # After closing, fire callback
       @options.closeCallback $(el).parent() if @options.closeCallback
