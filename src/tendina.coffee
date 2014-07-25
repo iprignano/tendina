@@ -128,6 +128,7 @@ Released under the MIT License
       # Removes the selected class from
       # any open nested submenu and closes it
       $targetNestedOpenSubmenu.removeClass 'selected'
+      $targetNestedOpenSubmenu.find('> ul li').removeClass 'selected'
       @_close($targetNestedOpenSubmenu.find('> ul'))
 
       # After closing, fire callback

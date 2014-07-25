@@ -115,6 +115,7 @@ Released under the MIT License
         $(el).parent().removeClass('selected');
         this._close($targetNestedMenu);
         $targetNestedOpenSubmenu.removeClass('selected');
+        $targetNestedOpenSubmenu.find('> ul li').removeClass('selected');
         this._close($targetNestedOpenSubmenu.find('> ul'));
         if (this.options.closeCallback) {
           return this.options.closeCallback($(el).parent());
