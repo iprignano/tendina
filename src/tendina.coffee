@@ -160,7 +160,7 @@ Released under the MIT License
 
     _showSubmenus: ->
       $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
-      $("#{@firstLvlSubmenu}").removeClass 'selected'
+      @$el.find('li').addClass 'selected'
 
     _openActiveMenu: (element) ->
       $activeMenu    = if element instanceof jQuery then element else @$el.find(element)
