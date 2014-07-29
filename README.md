@@ -5,11 +5,15 @@ A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 
 ![Tendina reveals!](/demo/tendina.gif "Tendina reveals")
 
-[Demo CodePen](http://codepen.io/iprignano/full/tjoua)
+### Demo
+* [Example page](https://iprignano.github.io/tendina/)
 
-[Download Zip Archive](https://github.com/iprignano/tendina/archive/master.zip) or clone the repo!
+### Download
 
-If you like Bower: `bower install tendina`
+* [Download Zip Archive](https://github.com/iprignano/tendina/archive/master.zip) or clone/fork this repo
+
+* If you like Bower: `bower install tendina`
+
 
 Usage
 ===
