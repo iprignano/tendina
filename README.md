@@ -7,6 +7,7 @@ A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 
 ### Demo
 * [Examples page](https://iprignano.github.io/tendina/)
+
 * [Basic CodePen demo](http://codepen.io/iprignano/full/tjoua)
 
 ### Download
