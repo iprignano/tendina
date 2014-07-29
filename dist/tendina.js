@@ -1,6 +1,6 @@
 
 /*
-Tendina jQuery plugin v0.10.1
+Tendina jQuery plugin v0.10.2
 
 Copyright (c) 2014 Ivan Prignano
 Released under the MIT License
@@ -153,7 +153,7 @@ Released under the MIT License
 
       Tendina.prototype._showSubmenus = function() {
         $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").show();
-        return $("" + this.firstLvlSubmenu).removeClass('selected');
+        return this.$el.find('li').addClass('selected');
       };
 
       Tendina.prototype._openActiveMenu = function(element) {
