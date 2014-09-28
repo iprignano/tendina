@@ -76,11 +76,11 @@ $('#menu').tendina()
 
 #### What Tendina does
 - Provides a super easy way to setup sidemenus in a matter of minutes
-- Supports three-level-deep menu nesting (`ul li => ul li => ul li`)
+- Supports infinite levels of nesting
 - Hides your nested submenus and manages all interactions
 - Handles dinamically added elements (nice to have when building a menu from a JSON)
 - Supports multiple menu initializations on the same page
-- It's super lightweight – 4kb minified!
+- It's lightweight – 3kb minified!
 
 #### What Tendina does not
 - Improve your social life
