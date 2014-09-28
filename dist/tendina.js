@@ -87,9 +87,12 @@ Released under the MIT License
       };
 
       Tendina.prototype._openSubmenu = function(el) {
-        var $targetMenu;
+        var $openMenus, $targetMenu;
         $targetMenu = $(el).next('ul');
+        $openMenus = this.$el.find('> .selected ul').not($targetMenu).not($targetMenu.parents('ul'));
         $(el).parent('li').addClass('selected');
+        this._close($openMenus);
+        this.$el.find('.selected').not($targetMenu.parents('li')).removeClass('selected');
         this._open($targetMenu);
         if (this.options.openCallback) {
           return this.options.openCallback($(el).parent());

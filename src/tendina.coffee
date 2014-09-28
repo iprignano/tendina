@@ -84,14 +84,19 @@ Released under the MIT License
         @_closeSubmenu(targetEl) unless @options.onHover
 
     _openSubmenu: (el) ->
-      $targetMenu  = $(el).next('ul')
+      $targetMenu = $(el).next('ul')
+      $openMenus  = @$el.find('> .selected ul').not($targetMenu).not($targetMenu.parents('ul'))
 
       # Add selected class to menu
       $(el).parent('li').addClass('selected')
 
       # Closes all currently open menus
       # and opens the targeted one
-      # TODO HERE
+      @_close $openMenus
+      @$el.find('.selected')
+        .not($targetMenu.parents('li'))
+        .removeClass('selected')
+
       @_open $targetMenu
 
       # After opening, fire callback
