@@ -10,9 +10,9 @@ Released under the MIT License
 
     # Default options
     defaults:
-      animate: true
-      speed: 500
-      onHover: false
+      animate:    true
+      speed:      500
+      onHover:    false
       hoverDelay: 200
       activeMenu: null
 
@@ -32,15 +32,6 @@ Released under the MIT License
       # elements that will be bound to the handler
       @linkSelector  = "#{@elSelector} a"
       @$listElements = $(@linkSelector).parent('li')
-
-      # Sets class variables for relevant elements.
-      # I'm doing this instead of wrapping every element
-      # in a jQuery object in order to correctly
-      # bind events to dynamically added elements
-      @firstLvlSubmenu      = "#{@elSelector} > li"
-      @secondLvlSubmenu     = "#{@elSelector} > li > ul > li"
-      @firstLvlSubmenuLink  = "#{@firstLvlSubmenu} > a"
-      @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
 
       # Hides submenus on document.ready
       @_hideSubmenus()
@@ -109,12 +100,6 @@ Released under the MIT License
       # Closes all currently open menus
       # and opens the targeted one
       @_open($targetMenu)
-
-      # If target element is a first-level
-      # menu, closes all opened second-level submenus
-      if targetEl is @firstLvlSubmenu
-        $(targetEl).find('li').removeClass 'selected'
-        $('.selected').find('ul').slideUp()
 
       # After opening, fire callback
       @options.openCallback $(targetEl).parent() if @options.openCallback

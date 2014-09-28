@@ -29,10 +29,6 @@ Released under the MIT License
         this.$el.addClass('tendina');
         this.linkSelector = "" + this.elSelector + " a";
         this.$listElements = $(this.linkSelector).parent('li');
-        this.firstLvlSubmenu = "" + this.elSelector + " > li";
-        this.secondLvlSubmenu = "" + this.elSelector + " > li > ul > li";
-        this.firstLvlSubmenuLink = "" + this.firstLvlSubmenu + " > a";
-        this.secondLvlSubmenuLink = "" + this.secondLvlSubmenu + " > a";
         this._hideSubmenus();
         this.mouseEvent = this.options.onHover === true ? 'mouseenter.tendina' : 'click.tendina';
         this._bindEvents();
@@ -100,10 +96,6 @@ Released under the MIT License
         }
         $(targetEl).parent('li').addClass('selected');
         this._open($targetMenu);
-        if (targetEl === this.firstLvlSubmenu) {
-          $(targetEl).find('li').removeClass('selected');
-          $('.selected').find('ul').slideUp();
-        }
         if (this.options.openCallback) {
           return this.options.openCallback($(targetEl).parent());
         }
