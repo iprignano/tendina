@@ -25,7 +25,6 @@ Released under the MIT License
         this._eventHandler = __bind(this._eventHandler, this);
         this.options = $.extend({}, this.defaults, options);
         this.$el = $(el);
-        this._checkOptions();
         this.elSelector = this._getSelector(this.$el);
         this.$el.addClass('tendina');
         this.linkSelector = "" + this.elSelector + " a";
@@ -168,18 +167,6 @@ Released under the MIT License
         }
         $activeMenu.parent().addClass('selected');
         return $activeParents.parent().addClass('selected');
-      };
-
-      Tendina.prototype._checkOptions = function() {
-        if (this.options.animate !== true && this.options.animate !== false) {
-          console.warn("jQuery.fn.Tendina - '" + this.options.animate + "' is not a valid parameter for the 'animate' option. Falling back to default value.");
-        }
-        if (this.options.speed !== parseInt(this.options.speed)) {
-          console.warn("jQuery.fn.Tendina - '" + this.options.speed + "' is not a valid parameter for the 'speed' option. Falling back to default value.");
-        }
-        if (this.options.onHover !== true && this.options.onHover !== false) {
-          return console.warn("jQuery.fn.Tendina - '" + this.options.onHover + "' is not a valid parameter for the 'onHover' option. Falling back to default value.");
-        }
       };
 
       Tendina.prototype.destroy = function() {
