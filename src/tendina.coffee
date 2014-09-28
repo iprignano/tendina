@@ -154,7 +154,7 @@ Released under the MIT License
       $activeMenu    = if element instanceof jQuery then element else @$el.find(element)
       $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
-      # Third and second level submenus
+      # Deeper than first level menus
       if @_hasChildenAndIsHidden($activeParents)
         $activeParents.next('ul').show()
       # First level menu
