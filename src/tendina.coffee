@@ -68,7 +68,7 @@ Released under the MIT License
       return true if $(targetEl).parent().parent().hasClass('tendina')
 
     _eventHandler: (event) =>
-      targetEl     = event.currentTarget
+      targetEl = event.currentTarget
 
       # Opens or closes target menu
       if @_hasChildenAndIsHidden(targetEl)
@@ -83,41 +83,37 @@ Released under the MIT License
         event.preventDefault()
         @_closeSubmenu(targetEl) unless @options.onHover
 
-    _openSubmenu: (targetEl) ->
-      $targetMenu  = $(targetEl).next('ul')
-      $otherMenus  = @$el.find('ul')
-      $parentMenus = $targetMenu.parents('selected')
+    _openSubmenu: (el) ->
+      $targetMenu  = $(el).next('ul')
 
-      if $parentMenus.length
-        $otherMenus
-          .not($parentMenus)
-          .removeClass('selected')
-          .stop()
-          .slideUp()
-
-      $(targetEl).parent('li').addClass('selected')
+      # Add selected class to menu
+      $(el).parent('li').addClass('selected')
 
       # Closes all currently open menus
       # and opens the targeted one
-      @_open($targetMenu)
+      # TODO HERE
+      @_open $targetMenu
 
       # After opening, fire callback
-      @options.openCallback $(targetEl).parent() if @options.openCallback
+      @options.openCallback $(el).parent() if @options.openCallback
 
     _closeSubmenu: (el) ->
-      $targetMenu = $(el).next('ul')
-      $targetNestedOpenSubmenu = $targetMenu.find('> li.selected')
+      $targetMenu  = $(el).next('ul')
+      $nestedMenus = $targetMenu.find('li.selected')
 
       # Removes the selected class from the
       # menu that's being closed
-      $(el).parent().removeClass 'selected'
-      @_close($targetMenu)
+      $(el)
+        .parent()
+        .removeClass('selected')
+
+      # Closes the target menu
+      @_close $targetMenu
 
       # Removes the selected class from
-      # any open nested submenu and closes it
-      $targetNestedOpenSubmenu.removeClass 'selected'
-      $targetNestedOpenSubmenu.find('> ul li').removeClass 'selected'
-      @_close($targetNestedOpenSubmenu.find('> ul'))
+      # any open nested submenu and closes them
+      $nestedMenus.removeClass('selected')
+      @_close $nestedMenus.find('ul')
 
       # After closing, fire callback
       @options.closeCallback $(el).parent() if @options.closeCallback

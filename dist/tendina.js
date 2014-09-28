@@ -86,30 +86,24 @@ Released under the MIT License
         }
       };
 
-      Tendina.prototype._openSubmenu = function(targetEl) {
-        var $otherMenus, $parentMenus, $targetMenu;
-        $targetMenu = $(targetEl).next('ul');
-        $otherMenus = this.$el.find('ul');
-        $parentMenus = $targetMenu.parents('selected');
-        if ($parentMenus.length) {
-          $otherMenus.not($parentMenus).removeClass('selected').stop().slideUp();
-        }
-        $(targetEl).parent('li').addClass('selected');
+      Tendina.prototype._openSubmenu = function(el) {
+        var $targetMenu;
+        $targetMenu = $(el).next('ul');
+        $(el).parent('li').addClass('selected');
         this._open($targetMenu);
         if (this.options.openCallback) {
-          return this.options.openCallback($(targetEl).parent());
+          return this.options.openCallback($(el).parent());
         }
       };
 
       Tendina.prototype._closeSubmenu = function(el) {
-        var $targetMenu, $targetNestedOpenSubmenu;
+        var $nestedMenus, $targetMenu;
         $targetMenu = $(el).next('ul');
-        $targetNestedOpenSubmenu = $targetMenu.find('> li.selected');
+        $nestedMenus = $targetMenu.find('li.selected');
         $(el).parent().removeClass('selected');
         this._close($targetMenu);
-        $targetNestedOpenSubmenu.removeClass('selected');
-        $targetNestedOpenSubmenu.find('> ul li').removeClass('selected');
-        this._close($targetNestedOpenSubmenu.find('> ul'));
+        $nestedMenus.removeClass('selected');
+        this._close($nestedMenus.find('ul'));
         if (this.options.closeCallback) {
           return this.options.closeCallback($(el).parent());
         }
