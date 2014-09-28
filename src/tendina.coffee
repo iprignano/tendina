@@ -32,6 +32,11 @@ Released under the MIT License
       # for better reference
       @$el.addClass('tendina')
 
+      # Sets a class variable for anchor
+      # elements that will be bound to the handler
+      @linkSelector  = "#{@elSelector} a"
+      @$listElements = $(@linkSelector).parent('li')
+
       # Sets class variables for relevant elements.
       # I'm doing this instead of wrapping every element
       # in a jQuery object in order to correctly
@@ -59,7 +64,7 @@ Released under the MIT License
     # Private Methods
     # ==================
     _bindEvents: ->
-      $(document).on @mouseEvent, "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_eventHandler
+      $(document).on @mouseEvent, @linkSelector, @_eventHandler
 
     _unbindEvents: ->
       $(document).off @mouseEvent
@@ -77,53 +82,55 @@ Released under the MIT License
 
     _eventHandler: (event) =>
       targetEl     = event.currentTarget
-      submenuLevel = if @_isFirstLevel(targetEl) then @firstLvlSubmenu else @secondLvlSubmenu
 
       # Opens or closes target menu
       if @_hasChildenAndIsHidden(targetEl)
         event.preventDefault()
         if @options.onHover
           setTimeout =>
-            @_openSubmenu(submenuLevel, targetEl) if $(targetEl).is(':hover')
+            @_openSubmenu(targetEl) if $(targetEl).is(':hover')
           , @options.hoverDelay
         else
-          @_openSubmenu(submenuLevel, targetEl)
+          @_openSubmenu(targetEl)
       else if @_isCurrentlyOpen(targetEl)
         event.preventDefault()
         @_closeSubmenu(targetEl) unless @options.onHover
 
-    _openSubmenu: (el, targetEl) ->
-      $firstNestedMenu  = $(el).find('> ul')
-      $lastNestedMenu   = $(el).find('> ul > li > ul')
-      $targetNestedMenu = $(targetEl).next('ul')
+    _openSubmenu: (targetEl) ->
+      $targetMenu  = $(targetEl).next('ul')
+      $otherMenus  = @$el.find('ul')
+      $parentMenus = $targetMenu.parents('selected')
 
-      # Removes selected class from all the current
-      # level menus and adds it to target menu
-      $(el).removeClass 'selected'
-      $(targetEl).parent().addClass 'selected'
+      if $parentMenus.length
+        $otherMenus
+          .not($parentMenus)
+          .removeClass('selected')
+          .stop()
+          .slideUp()
+
+      $(targetEl).parent('li').addClass('selected')
 
       # Closes all currently open menus
       # and opens the targeted one
-      @_close($firstNestedMenu)
-      @_open($targetNestedMenu)
+      @_open($targetMenu)
 
       # If target element is a first-level
       # menu, closes all opened second-level submenus
-      if el is @firstLvlSubmenu
-        $(el).find('> ul > li').removeClass 'selected'
-        @_close($lastNestedMenu)
+      if targetEl is @firstLvlSubmenu
+        $(targetEl).find('li').removeClass 'selected'
+        $('.selected').find('ul').slideUp()
 
       # After opening, fire callback
       @options.openCallback $(targetEl).parent() if @options.openCallback
 
     _closeSubmenu: (el) ->
-      $targetNestedMenu = $(el).next('ul')
-      $targetNestedOpenSubmenu = $targetNestedMenu.find('> li.selected')
+      $targetMenu = $(el).next('ul')
+      $targetNestedOpenSubmenu = $targetMenu.find('> li.selected')
 
       # Removes the selected class from the
       # menu that's being closed
       $(el).parent().removeClass 'selected'
-      @_close($targetNestedMenu)
+      @_close($targetMenu)
 
       # Removes the selected class from
       # any open nested submenu and closes it
@@ -155,11 +162,10 @@ Released under the MIT License
       $(el).parent().hasClass 'selected'
 
     _hideSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
-      $("#{@firstLvlSubmenu} > ul").removeClass 'selected'
+      @$el.find('ul').hide()
 
     _showSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
+      @$el.find('ul').show()
       @$el.find('li').addClass 'selected'
 
     _openActiveMenu: (element) ->
@@ -175,8 +181,8 @@ Released under the MIT License
 
       # Adds selected class to opened menu
       # and all its parents
-      $activeMenu.parent().addClass 'selected'
-      $activeParents.parent().addClass 'selected'
+      $activeMenu.parent().addClass('selected')
+      $activeParents.parent().addClass('selected')
 
     _checkOptions: ->
       if @options.animate isnt true and @options.animate isnt false
