@@ -25,13 +25,10 @@ Released under the MIT License
         this._eventHandler = __bind(this._eventHandler, this);
         this.options = $.extend({}, this.defaults, options);
         this.$el = $(el);
-        this._checkOptions();
         this.elSelector = this._getSelector(this.$el);
         this.$el.addClass('tendina');
-        this.firstLvlSubmenu = "" + this.elSelector + " > li";
-        this.secondLvlSubmenu = "" + this.elSelector + " > li > ul > li";
-        this.firstLvlSubmenuLink = "" + this.firstLvlSubmenu + " > a";
-        this.secondLvlSubmenuLink = "" + this.secondLvlSubmenu + " > a";
+        this.linkSelector = "" + this.elSelector + " a";
+        this.$listElements = $(this.linkSelector).parent('li');
         this._hideSubmenus();
         this.mouseEvent = this.options.onHover === true ? 'mouseenter.tendina' : 'click.tendina';
         this._bindEvents();
@@ -41,7 +38,7 @@ Released under the MIT License
       }
 
       Tendina.prototype._bindEvents = function() {
-        return $(document).on(this.mouseEvent, "" + this.firstLvlSubmenuLink + ", " + this.secondLvlSubmenuLink, this._eventHandler);
+        return $(document).on(this.mouseEvent, this.linkSelector, this._eventHandler);
       };
 
       Tendina.prototype._unbindEvents = function() {
@@ -66,21 +63,20 @@ Released under the MIT License
       };
 
       Tendina.prototype._eventHandler = function(event) {
-        var submenuLevel, targetEl;
+        var targetEl;
         targetEl = event.currentTarget;
-        submenuLevel = this._isFirstLevel(targetEl) ? this.firstLvlSubmenu : this.secondLvlSubmenu;
         if (this._hasChildenAndIsHidden(targetEl)) {
           event.preventDefault();
           if (this.options.onHover) {
             return setTimeout((function(_this) {
               return function() {
                 if ($(targetEl).is(':hover')) {
-                  return _this._openSubmenu(submenuLevel, targetEl);
+                  return _this._openSubmenu(targetEl);
                 }
               };
             })(this), this.options.hoverDelay);
           } else {
-            return this._openSubmenu(submenuLevel, targetEl);
+            return this._openSubmenu(targetEl);
           }
         } else if (this._isCurrentlyOpen(targetEl)) {
           event.preventDefault();
@@ -90,33 +86,27 @@ Released under the MIT License
         }
       };
 
-      Tendina.prototype._openSubmenu = function(el, targetEl) {
-        var $firstNestedMenu, $lastNestedMenu, $targetNestedMenu;
-        $firstNestedMenu = $(el).find('> ul');
-        $lastNestedMenu = $(el).find('> ul > li > ul');
-        $targetNestedMenu = $(targetEl).next('ul');
-        $(el).removeClass('selected');
-        $(targetEl).parent().addClass('selected');
-        this._close($firstNestedMenu);
-        this._open($targetNestedMenu);
-        if (el === this.firstLvlSubmenu) {
-          $(el).find('> ul > li').removeClass('selected');
-          this._close($lastNestedMenu);
-        }
+      Tendina.prototype._openSubmenu = function(el) {
+        var $openMenus, $targetMenu;
+        $targetMenu = $(el).next('ul');
+        $openMenus = this.$el.find('> .selected ul').not($targetMenu).not($targetMenu.parents('ul'));
+        $(el).parent('li').addClass('selected');
+        this._close($openMenus);
+        this.$el.find('.selected').not($targetMenu.parents('li')).removeClass('selected');
+        this._open($targetMenu);
         if (this.options.openCallback) {
-          return this.options.openCallback($(targetEl).parent());
+          return this.options.openCallback($(el).parent());
         }
       };
 
       Tendina.prototype._closeSubmenu = function(el) {
-        var $targetNestedMenu, $targetNestedOpenSubmenu;
-        $targetNestedMenu = $(el).next('ul');
-        $targetNestedOpenSubmenu = $targetNestedMenu.find('> li.selected');
+        var $nestedMenus, $targetMenu;
+        $targetMenu = $(el).next('ul');
+        $nestedMenus = $targetMenu.find('li.selected');
         $(el).parent().removeClass('selected');
-        this._close($targetNestedMenu);
-        $targetNestedOpenSubmenu.removeClass('selected');
-        $targetNestedOpenSubmenu.find('> ul li').removeClass('selected');
-        this._close($targetNestedOpenSubmenu.find('> ul'));
+        this._close($targetMenu);
+        $nestedMenus.removeClass('selected');
+        this._close($nestedMenus.find('ul'));
         if (this.options.closeCallback) {
           return this.options.closeCallback($(el).parent());
         }
@@ -147,12 +137,11 @@ Released under the MIT License
       };
 
       Tendina.prototype._hideSubmenus = function() {
-        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").hide();
-        return $("" + this.firstLvlSubmenu + " > ul").removeClass('selected');
+        return this.$el.find('ul').hide();
       };
 
       Tendina.prototype._showSubmenus = function() {
-        $("" + this.firstLvlSubmenu + " > ul, " + this.secondLvlSubmenu + " > ul").show();
+        this.$el.find('ul').show();
         return this.$el.find('li').addClass('selected');
       };
 
@@ -167,18 +156,6 @@ Released under the MIT License
         }
         $activeMenu.parent().addClass('selected');
         return $activeParents.parent().addClass('selected');
-      };
-
-      Tendina.prototype._checkOptions = function() {
-        if (this.options.animate !== true && this.options.animate !== false) {
-          console.warn("jQuery.fn.Tendina - '" + this.options.animate + "' is not a valid parameter for the 'animate' option. Falling back to default value.");
-        }
-        if (this.options.speed !== parseInt(this.options.speed)) {
-          console.warn("jQuery.fn.Tendina - '" + this.options.speed + "' is not a valid parameter for the 'speed' option. Falling back to default value.");
-        }
-        if (this.options.onHover !== true && this.options.onHover !== false) {
-          return console.warn("jQuery.fn.Tendina - '" + this.options.onHover + "' is not a valid parameter for the 'onHover' option. Falling back to default value.");
-        }
       };
 
       Tendina.prototype.destroy = function() {

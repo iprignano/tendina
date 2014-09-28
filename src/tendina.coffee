@@ -10,19 +10,15 @@ Released under the MIT License
 
     # Default options
     defaults:
-      animate: true
-      speed: 500
-      onHover: false
+      animate:    true
+      speed:      500
+      onHover:    false
       hoverDelay: 200
       activeMenu: null
 
     constructor: (el, options) ->
       @options = $.extend({}, @defaults, options)
       @$el     = $(el)
-
-      # Checks if options object
-      # contains wrong values
-      @_checkOptions()
 
       # Gets element selector - needed
       # for multiple menu initialization
@@ -32,14 +28,10 @@ Released under the MIT License
       # for better reference
       @$el.addClass('tendina')
 
-      # Sets class variables for relevant elements.
-      # I'm doing this instead of wrapping every element
-      # in a jQuery object in order to correctly
-      # bind events to dynamically added elements
-      @firstLvlSubmenu      = "#{@elSelector} > li"
-      @secondLvlSubmenu     = "#{@elSelector} > li > ul > li"
-      @firstLvlSubmenuLink  = "#{@firstLvlSubmenu} > a"
-      @secondLvlSubmenuLink = "#{@secondLvlSubmenu} > a"
+      # Sets a class variable for anchor
+      # elements that will be bound to the handler
+      @linkSelector  = "#{@elSelector} a"
+      @$listElements = $(@linkSelector).parent('li')
 
       # Hides submenus on document.ready
       @_hideSubmenus()
@@ -59,7 +51,7 @@ Released under the MIT License
     # Private Methods
     # ==================
     _bindEvents: ->
-      $(document).on @mouseEvent, "#{@firstLvlSubmenuLink}, #{@secondLvlSubmenuLink}", @_eventHandler
+      $(document).on @mouseEvent, @linkSelector, @_eventHandler
 
     _unbindEvents: ->
       $(document).off @mouseEvent
@@ -76,60 +68,57 @@ Released under the MIT License
       return true if $(targetEl).parent().parent().hasClass('tendina')
 
     _eventHandler: (event) =>
-      targetEl     = event.currentTarget
-      submenuLevel = if @_isFirstLevel(targetEl) then @firstLvlSubmenu else @secondLvlSubmenu
+      targetEl = event.currentTarget
 
       # Opens or closes target menu
       if @_hasChildenAndIsHidden(targetEl)
         event.preventDefault()
         if @options.onHover
           setTimeout =>
-            @_openSubmenu(submenuLevel, targetEl) if $(targetEl).is(':hover')
+            @_openSubmenu(targetEl) if $(targetEl).is(':hover')
           , @options.hoverDelay
         else
-          @_openSubmenu(submenuLevel, targetEl)
+          @_openSubmenu(targetEl)
       else if @_isCurrentlyOpen(targetEl)
         event.preventDefault()
         @_closeSubmenu(targetEl) unless @options.onHover
 
-    _openSubmenu: (el, targetEl) ->
-      $firstNestedMenu  = $(el).find('> ul')
-      $lastNestedMenu   = $(el).find('> ul > li > ul')
-      $targetNestedMenu = $(targetEl).next('ul')
+    _openSubmenu: (el) ->
+      $targetMenu = $(el).next('ul')
+      $openMenus  = @$el.find('> .selected ul').not($targetMenu).not($targetMenu.parents('ul'))
 
-      # Removes selected class from all the current
-      # level menus and adds it to target menu
-      $(el).removeClass 'selected'
-      $(targetEl).parent().addClass 'selected'
+      # Add selected class to menu
+      $(el).parent('li').addClass('selected')
 
       # Closes all currently open menus
       # and opens the targeted one
-      @_close($firstNestedMenu)
-      @_open($targetNestedMenu)
+      @_close $openMenus
+      @$el.find('.selected')
+        .not($targetMenu.parents('li'))
+        .removeClass('selected')
 
-      # If target element is a first-level
-      # menu, closes all opened second-level submenus
-      if el is @firstLvlSubmenu
-        $(el).find('> ul > li').removeClass 'selected'
-        @_close($lastNestedMenu)
+      @_open $targetMenu
 
       # After opening, fire callback
-      @options.openCallback $(targetEl).parent() if @options.openCallback
+      @options.openCallback $(el).parent() if @options.openCallback
 
     _closeSubmenu: (el) ->
-      $targetNestedMenu = $(el).next('ul')
-      $targetNestedOpenSubmenu = $targetNestedMenu.find('> li.selected')
+      $targetMenu  = $(el).next('ul')
+      $nestedMenus = $targetMenu.find('li.selected')
 
       # Removes the selected class from the
       # menu that's being closed
-      $(el).parent().removeClass 'selected'
-      @_close($targetNestedMenu)
+      $(el)
+        .parent()
+        .removeClass('selected')
+
+      # Closes the target menu
+      @_close $targetMenu
 
       # Removes the selected class from
-      # any open nested submenu and closes it
-      $targetNestedOpenSubmenu.removeClass 'selected'
-      $targetNestedOpenSubmenu.find('> ul li').removeClass 'selected'
-      @_close($targetNestedOpenSubmenu.find('> ul'))
+      # any open nested submenu and closes them
+      $nestedMenus.removeClass('selected')
+      @_close $nestedMenus.find('ul')
 
       # After closing, fire callback
       @options.closeCallback $(el).parent() if @options.closeCallback
@@ -155,18 +144,17 @@ Released under the MIT License
       $(el).parent().hasClass 'selected'
 
     _hideSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").hide()
-      $("#{@firstLvlSubmenu} > ul").removeClass 'selected'
+      @$el.find('ul').hide()
 
     _showSubmenus: ->
-      $("#{@firstLvlSubmenu} > ul, #{@secondLvlSubmenu} > ul").show()
+      @$el.find('ul').show()
       @$el.find('li').addClass 'selected'
 
     _openActiveMenu: (element) ->
       $activeMenu    = if element instanceof jQuery then element else @$el.find(element)
       $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
-      # Third and second level submenus
+      # Deeper than first level menus
       if @_hasChildenAndIsHidden($activeParents)
         $activeParents.next('ul').show()
       # First level menu
@@ -175,16 +163,8 @@ Released under the MIT License
 
       # Adds selected class to opened menu
       # and all its parents
-      $activeMenu.parent().addClass 'selected'
-      $activeParents.parent().addClass 'selected'
-
-    _checkOptions: ->
-      if @options.animate isnt true and @options.animate isnt false
-        console.warn "jQuery.fn.Tendina - '#{@options.animate}' is not a valid parameter for the 'animate' option. Falling back to default value."
-      if @options.speed   isnt parseInt(@options.speed)
-        console.warn "jQuery.fn.Tendina - '#{@options.speed}' is not a valid parameter for the 'speed' option. Falling back to default value."
-      if @options.onHover isnt true and @options.onHover isnt false
-        console.warn "jQuery.fn.Tendina - '#{@options.onHover}' is not a valid parameter for the 'onHover' option. Falling back to default value."
+      $activeMenu.parent().addClass('selected')
+      $activeParents.parent().addClass('selected')
 
     # ==================
     # API

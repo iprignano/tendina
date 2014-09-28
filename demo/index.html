@@ -22,7 +22,19 @@
           <li><a class="cocktails" href="#">Cocktails</a>
             <ul>
               <li><a id="long-island" href="#">Long Island Ice Tea</a></li>
-              <li><a class="gin-lemon" href="#">Gin Lemon</a></li>
+              <li><a class="gin-lemon" href="#">Gin Lemon</a>
+              </li>
+              <li><a class="non-alcoholic" href="#">Non alcoholic</a>
+                <ul>
+                  <li><a href="#">With Milk</a>
+                    <ul>
+                      <li><a href="#">Almond Milk Cooler</a></li>
+                      <li><a id="deepest" href="#">Banana Milk Shake</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Almond Iced Coffee</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
         </ul>
@@ -47,7 +59,7 @@
         speed: 500,
         onHover: false,
         hoverDelay: 300,
-        activeMenu: $('.gin-lemon'),
+        activeMenu: $('#deepest'),
         openCallback: function(clickedEl) {
           console.log('Hey dude!');
         },
