@@ -1,6 +1,8 @@
 Tendina
 =======
 
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/iprignano/tendina)
+
 A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 
 ![Tendina reveals!](/demo/tendina.gif "Tendina reveals")
