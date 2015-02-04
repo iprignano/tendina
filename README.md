@@ -1,7 +1,8 @@
 Tendina
 =======
 
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/iprignano/tendina)
+[![Bower version](https://badge.fury.io/bo/tendina.png)](http://badge.fury.io/bo/tendina) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
 
 A super easy-to-use jQuery plugin to rapidly build dropdown side menus.
 
