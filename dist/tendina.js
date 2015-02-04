@@ -2,7 +2,7 @@
 /*
 Tendina jQuery plugin v0.11.0
 
-Copyright (c) 2014 Ivan Prignano
+Copyright (c) 2015 Ivan Prignano
 Released under the MIT License
  */
 
