@@ -65,7 +65,7 @@ Released under the MIT License
       Tendina.prototype._eventHandler = function(event) {
         var targetEl;
         targetEl = event.currentTarget;
-        if (this._hasChildenAndIsHidden(targetEl)) {
+        if (this._hasChildrenAndIsHidden(targetEl)) {
           event.preventDefault();
           if (this.options.onHover) {
             return setTimeout((function(_this) {
@@ -128,7 +128,7 @@ Released under the MIT License
         }
       };
 
-      Tendina.prototype._hasChildenAndIsHidden = function(el) {
+      Tendina.prototype._hasChildrenAndIsHidden = function(el) {
         return $(el).next('ul').length > 0 && $(el).next('ul').is(':hidden');
       };
 
@@ -149,7 +149,7 @@ Released under the MIT License
         var $activeMenu, $activeParents;
         $activeMenu = element instanceof jQuery ? element : this.$el.find(element);
         $activeParents = $activeMenu.closest('ul').parents('li').find('> a');
-        if (this._hasChildenAndIsHidden($activeParents)) {
+        if (this._hasChildrenAndIsHidden($activeParents)) {
           $activeParents.next('ul').show();
         } else {
           $activeMenu.next('ul').show();

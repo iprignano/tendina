@@ -71,7 +71,7 @@ Released under the MIT License
       targetEl = event.currentTarget
 
       # Opens or closes target menu
-      if @_hasChildenAndIsHidden(targetEl)
+      if @_hasChildrenAndIsHidden(targetEl)
         event.preventDefault()
         if @options.onHover
           setTimeout =>
@@ -135,7 +135,7 @@ Released under the MIT License
       else
         $el.hide()
 
-    _hasChildenAndIsHidden: (el) ->
+    _hasChildrenAndIsHidden: (el) ->
       # Checks if there's a nested ul element
       # and, in that case, if it's currently hidden
       $(el).next('ul').length > 0 && $(el).next('ul').is(':hidden')
@@ -155,7 +155,7 @@ Released under the MIT License
       $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
       # Deeper than first level menus
-      if @_hasChildenAndIsHidden($activeParents)
+      if @_hasChildrenAndIsHidden($activeParents)
         $activeParents.next('ul').show()
       # First level menu
       else
