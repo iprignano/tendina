@@ -71,7 +71,7 @@ Released under the MIT License
       targetEl = event.currentTarget
 
       # Opens or closes target menu
-      if @_hasChildrenAndIsHidden(targetEl)
+      if @_hasChildren(targetEl) and @_IsChildrenHidden(targetEl)
         event.preventDefault()
         if @options.onHover
           setTimeout =>
@@ -79,7 +79,7 @@ Released under the MIT License
           , @options.hoverDelay
         else
           @_openSubmenu(targetEl)
-      else if @_isCurrentlyOpen(targetEl)
+      else if @_isCurrentlyOpen(targetEl) and @_hasChildren(targetEl)
         event.preventDefault()
         @_closeSubmenu(targetEl) unless @options.onHover
 
@@ -135,10 +135,13 @@ Released under the MIT License
       else
         $el.hide()
 
-    _hasChildrenAndIsHidden: (el) ->
-      # Checks if there's a nested ul element
-      # and, in that case, if it's currently hidden
-      $(el).next('ul').length > 0 && $(el).next('ul').is(':hidden')
+    _hasChildren: (el) ->
+      # Checks if clicked el is not a 'leaf'
+      $(el).next('ul').length > 0
+
+    _IsChildrenHidden: (el) ->
+      # Checks if children list is hidden
+      $(el).next('ul').is(':hidden')
 
     _isCurrentlyOpen: (el) ->
       $(el).parent().hasClass 'selected'
@@ -155,7 +158,7 @@ Released under the MIT License
       $activeParents = $activeMenu.closest('ul').parents('li').find('> a')
 
       # Deeper than first level menus
-      if @_hasChildrenAndIsHidden($activeParents)
+      if @_hasChildren($activeParents) and @_IsChildrenHidden($activeParents)
         $activeParents.next('ul').show()
       # First level menu
       else
